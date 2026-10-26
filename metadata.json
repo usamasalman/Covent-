@@ -1,0 +1,6 @@
+{
+  "name": "COVENT & STONE | B2B Wholesale Footwear & Leathercraft",
+  "description": "Editorial-grade B2B wholesale platform for handcrafted Goodyear-welted leather boots, custom OEM manufacturing, dynamic tiered pricing, and buyer quotation management.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

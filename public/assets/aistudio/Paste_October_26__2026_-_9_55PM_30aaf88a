@@ -1,0 +1,1233 @@
+# MASTER BUILD PROMPT
+## Premium B2B Leather Boots & Wholesale Footwear Commerce Platform
+
+### 1. Your Role
+
+Act as a principal software architect, senior full-stack engineer, premium e-commerce UX/UI designer, motion designer, B2B commerce consultant, database architect, cybersecurity engineer, and analytics specialist.
+
+Your task is to design, develop, test, and document a production-ready, custom-built B2B wholesale leather boots and footwear platform.
+
+Do not create an ordinary template-based e-commerce website. Create a distinctive, premium, editorial-quality digital experience that combines luxury footwear branding, sophisticated motion design, an enterprise-grade wholesale purchasing workflow, and a powerful administration portal.
+
+The finished platform must serve two equally important audiences:
+
+1. **Wholesale buyers:** retailers, footwear stores, distributors, importers, resellers, private-label brands, and bulk purchasing companies.
+2. **Store owners and administrators:** the team responsible for managing products, pricing, stock, customers, quotations, orders, website content, business performance, and analytics.
+
+Build a complete, functional application rather than a static visual prototype.
+
+---
+
+### 2. Project Objectives
+
+Develop a website that enables businesses to:
+
+- Discover premium leather boots and other footwear categories.
+- Explore comprehensive product specifications and authentic product imagery.
+- View configurable quantity-based wholesale pricing.
+- Register and apply for a wholesale business account.
+- Add products and quantities to a bulk inquiry or purchasing list.
+- Specify sizes, colors, materials, and packaging requirements.
+- Request customized quotations for high-volume orders.
+- Receive and accept quotations through their buyer accounts.
+- Track orders, invoices, payments, and fulfillment statuses.
+- Contact the sales team and request samples where supported.
+
+The store owner must be able to manage the complete website through a secure admin portal without modifying source code for ordinary business operations.
+
+The admin portal must include a real analytics dashboard based on actual application data, with date filters, meaningful business KPIs, charts, tables, and exportable reports.
+
+### 3. Research and Design Benchmarking
+
+Before implementation, inspect these public references:
+
+- The Leather Range: https://www.leatherrange.com/
+- Anamon wholesale catalog: https://anamonofficial.com/products
+- Anamon bulk quotation workflow: https://anamonofficial.com/bulk-order
+- Sandal 'n Shoe Trade: https://www.trade.sandalnshoe.com/
+- Trefir premium leather wholesale catalog: https://wholesale.trefir.com/collections/premium-leather-wholesale-footwear
+
+Analyze their publicly accessible layouts, category structures, product information, purchasing workflows, filters, pricing presentation, and trust signals.
+
+Use them as research references only. Do not copy their code, proprietary branding, text, photography, or distinctive designs.
+
+Produce a short design audit identifying:
+
+- Useful B2B commerce patterns.
+- Missing features that the new platform should improve.
+- Opportunities for a more premium visual identity.
+- Buyer friction points to eliminate.
+- Recommended product attributes and filtering systems.
+- Trust and transparency features needed for international wholesale transactions.
+
+Do not claim to have researched pages that could not actually be accessed.
+
+### 4. Brand and Visual Identity
+
+Create a premium, contemporary footwear identity.
+
+The website should feel like a combination of an independent luxury footwear label, a sophisticated product editorial, and a professional international trade portal.
+
+**Visual direction**
+
+- Warm ivory and off-white backgrounds.
+- Espresso, walnut, and dark chocolate tones.
+- Muted taupe and stone neutrals.
+- Deep charcoal typography.
+- Restrained brass or antique-gold accents.
+- Large, immersive footwear photography.
+- Generous whitespace and strong typographic hierarchy.
+- Precise grids and refined borders.
+- Subtle material-inspired textures.
+- Sophisticated typography pairing, using an editorial serif for selected headlines and a highly readable sans-serif for navigation, product data, and forms.
+
+Treat these colors as initial design tokens that can be changed through the admin settings.
+
+Avoid excessive gradients, generic blue SaaS dashboards, glowing borders, random floating blobs, oversized rounded cards everywhere, unnecessary glassmorphism, and repetitive AI-generated landing-page patterns.
+
+The result must feel intentionally art-directed and commercially credible.
+
+Use a consistent design system for typography, colors, spacing, borders, buttons, icons, forms, tables, charts, motion, and responsive behavior.
+
+### 5. Motion Design and Animation
+
+Motion must be a defining part of the experience, not a collection of decorative effects.
+
+Use a carefully controlled motion system implemented with appropriate technologies such as Framer Motion or Motion for React, CSS transitions, and GSAP only where complex timelines justify it.
+
+Implement the following where they enhance usability:
+
+**Homepage**
+- An immersive hero with cinematic footwear imagery.
+- An elegant headline reveal.
+- Subtle image scaling or parallax on scroll.
+- Staggered product-card reveals.
+- Smooth transitions between editorial sections.
+- Refined hover states for product imagery and navigation.
+- A carefully choreographed transition into the product collection.
+
+**Product catalog**
+- Animated filter panels.
+- Smooth product-grid transitions.
+- Image transitions when changing product variants.
+- Clear visual feedback when adding products to a quote list.
+- Subtle quantity and pricing updates.
+
+**Product details**
+- Responsive image gallery transitions.
+- Smooth size and color selection.
+- Animated tier-price selection.
+- Clear feedback when quantities cross pricing thresholds.
+- An accessible sticky purchasing panel on larger screens.
+
+**Quotation workflow**
+- A polished multi-step progress indicator.
+- Animated transitions between steps.
+- Clear inline validation.
+- Loading, success, error, and empty states.
+- A confirmation screen with a request reference number.
+
+**Admin portal**
+- Responsive sidebar transitions.
+- Lightweight chart animations.
+- Animated KPI counters that respect reduced-motion settings.
+- Subtle notifications and status transitions.
+
+Performance and accessibility take priority over animation complexity.
+
+Requirements:
+
+- Support `prefers-reduced-motion`.
+- Avoid scroll hijacking and excessive parallax.
+- Do not delay essential information behind long animations.
+- Avoid layout shifts caused by motion.
+- Preserve smooth interactions on mid-range mobile devices.
+- Keep animation libraries and dependencies proportionate to their value.
+
+### 6. Required Website Pages
+
+Create separate, directly accessible routes for each page. Do not build the entire website as a single scrolling landing page.
+
+Use an organized route architecture with shared components and consistent navigation.
+
+#### A. Public storefront
+
+**1. Homepage — `/`**
+
+Include:
+
+- Premium navigation and brand identity.
+- Hero section with a strong wholesale-oriented headline.
+- Primary actions: “Explore Collection” and “Request Bulk Quote.”
+- Featured leather boots and best-selling products.
+- Shop-by-category section.
+- Wholesale volume-pricing explanation.
+- Custom manufacturing and private-label services, if offered.
+- Materials and craftsmanship editorial.
+- Quality assurance and manufacturing transparency.
+- How wholesale ordering works.
+- Sample-order information, if supported.
+- Business buyer benefits.
+- Verified testimonials only when genuine testimonials exist.
+- Frequently asked questions.
+- Newsletter subscription.
+- Professional footer with policies and contact details.
+
+Use commercially realistic content, not filler sections.
+
+**2. All products — `/products`**
+
+Build a comprehensive catalog with:
+
+- Search by product name, SKU, or keyword.
+- Category filters.
+- Gender and target-market filters.
+- Boot style filters.
+- Leather and material filters.
+- Color filters.
+- Size filters.
+- Price-range filters where applicable.
+- Stock and availability filters.
+- Production or customization filters where supported.
+- Sorting by newest, name, price, and popularity based on genuine data.
+- Pagination or an accessible load-more pattern.
+- Grid and list views.
+- Active-filter chips.
+- Clear-all filters.
+- Useful empty states.
+
+Filter values must be generated from the actual product database rather than a fixed list unrelated to inventory.
+
+**3. Category pages**
+
+Create dedicated, indexable pages for categories such as:
+
+- Men's leather boots.
+- Women's leather boots.
+- Chelsea boots.
+- Chukka and desert boots.
+- Lace-up work boots.
+- Safety boots.
+- Hiking and outdoor boots.
+- Dress boots.
+- Casual leather boots.
+- Motorcycle and riding boots, if offered.
+- Custom and private-label footwear.
+
+Also support configurable categories for formal shoes, loafers, Oxford shoes, Derby shoes, sneakers, sandals, and accessories.
+
+Do not imply that a product is safety-certified, waterproof, or suitable for a specialized application unless its verified specifications support the claim.
+
+Each category page should have a unique introduction, appropriate filters, product collection, and relevant SEO metadata.
+
+**4. Product detail — `/products/[slug]`**
+
+Each product must have its own dedicated page.
+
+Include:
+
+- Product name and SKU.
+- Multiple product images.
+- Image zoom or a larger-image view.
+- Style and category.
+- Product description.
+- Leather type and grade, when verified.
+- Upper material.
+- Lining material.
+- Outsole material.
+- Construction method, when verified.
+- Available colors.
+- Available sizes.
+- Size-chart reference.
+- Fit guidance, if supplied.
+- Country of manufacture, if verified.
+- Care instructions.
+- Product weight, if measured.
+- Available stock or a clear availability status.
+- Minimum order quantity.
+- Carton or pack quantity.
+- Production lead time where applicable.
+- Custom branding options, if supported.
+- Configurable wholesale pricing tiers.
+- Quantity and size-assortment selector.
+- Estimated product subtotal.
+- Request-a-quote action.
+- Sample request option, if offered.
+- Related products.
+- Downloadable technical specification sheet, where available.
+- Clear shipping, returns, and payment information.
+
+Do not invent technical product specifications. Allow unknown values to remain unpublished until confirmed by an administrator.
+
+**5. About and manufacturing — `/about`**
+
+Present the business story, manufacturing capabilities, materials, quality-control processes, and wholesale service model.
+
+Only publish real factory photographs, certifications, production capacities, export destinations, and business credentials after they have been verified.
+
+**6. Wholesale program — `/wholesale`**
+
+Explain:
+
+- How business accounts work.
+- Minimum order requirements.
+- Published price tiers.
+- Customer-specific pricing.
+- Payment and delivery terms.
+- Sample ordering.
+- Repeat ordering.
+- Distribution partnerships.
+- Private-label and OEM services, where available.
+
+Include a prominent wholesale account application.
+
+**7. Custom manufacturing — `/custom-manufacturing`**
+
+If the business offers OEM or private-label production, provide:
+
+- Material and color options.
+- Custom branding options.
+- Logo and packaging requirements.
+- Sample-development workflow.
+- Minimum quantities per style.
+- Production timelines.
+- Quality-control stages.
+- A structured inquiry form.
+
+Make clear that final specifications, prices, and production commitments require confirmation.
+
+**8. Request a quote — `/request-quote`**
+
+Build a complete quotation-request experience, described in Section 8.
+
+**9. Contact — `/contact`**
+
+Include a contact form, business email, phone number, business address when provided, operating hours, and available communication channels.
+
+Never fabricate contact details.
+
+**10. Help center — `/help`**
+
+Provide searchable information about:
+
+- Wholesale account registration.
+- Minimum order quantities.
+- Product sizes and assortments.
+- Pricing tiers.
+- Quotation requests.
+- Sample orders.
+- Payments.
+- Production timelines.
+- Shipping.
+- Returns and claims.
+- Order tracking.
+
+**11. Legal and trust pages**
+
+Create separate editable pages for:
+
+- Privacy policy.
+- Terms and conditions.
+- Wholesale terms.
+- Shipping policy.
+- Returns and claims policy.
+- Cookie and analytics preferences.
+- Accessibility information.
+
+These must be configurable and reviewed before production publication.
+
+#### B. Authentication and buyer portal
+
+Create dedicated routes for:
+
+- `/login`
+- `/register`
+- `/forgot-password`
+- `/account/pending-approval`
+- `/account`
+- `/account/company`
+- `/account/addresses`
+- `/account/quotes`
+- `/account/quotes/[id]`
+- `/account/orders`
+- `/account/orders/[id]`
+- `/account/invoices`
+- `/account/wishlist`
+- `/account/security`
+
+The buyer portal must display only the authenticated buyer's authorized company information and records.
+
+Support company-based accounts with multiple users and configurable roles, such as company owner, purchasing manager, and buyer.
+
+Include business verification and an approval workflow for restricted wholesale pricing.
+
+#### C. Administration portal
+
+Use a separate route namespace:
+
+`/admin`
+
+All administrative pages must be protected by server-side authentication and role-based authorization.
+
+### 7. Product Data Model and Catalog Quality
+
+Build a database-backed catalog rather than hardcoded product cards.
+
+Every product should support the following data structure:
+
+- Unique product ID.
+- Product name.
+- URL slug.
+- SKU.
+- Short and long descriptions.
+- Brand or product line.
+- Category and subcategory.
+- Target audience.
+- Product status.
+- Product images and alt text.
+- Leather type and grade.
+- Material composition.
+- Construction method.
+- Color variants.
+- Size variants.
+- Variant-specific SKU.
+- Variant-specific stock.
+- Wholesale minimum quantity.
+- Pack or carton rules.
+- Price tiers.
+- Customer-specific price overrides.
+- Production lead time.
+- Country of origin, where verified.
+- Care instructions.
+- Technical documents.
+- Search keywords.
+- SEO title and description.
+- Creation and modification timestamps.
+
+Support reusable product attributes so the catalog can grow without requiring schema changes for every new shoe characteristic.
+
+Model size systems carefully, including the applicable UK, US, and EU sizes when the product data supports them. Do not automatically treat those systems as interchangeable.
+
+Provide an admin interface to create, edit, archive, duplicate, import, and export products.
+
+Support CSV import with validation, error reports, duplicate detection, and preview before committing changes.
+
+### 8. Wholesale Pricing and Quotation Engine
+
+This is a core business requirement and must be implemented correctly.
+
+#### Tiered pricing
+
+Allow administrators to configure tiers for each product, product variant, or eligible customer price list.
+
+Example demonstration data:
+
+| Quantity | Unit price |
+|---|---:|
+| 24–49 pairs | $65 |
+| 50–99 pairs | $58 |
+| 100–249 pairs | $52 |
+| 250+ pairs | $48 |
+
+These figures are illustrative only. They must be editable and must never be presented as the business's real prices until confirmed.
+
+The system must support:
+
+- Minimum and maximum quantity boundaries.
+- Minimum order quantities.
+- Configurable carton multiples.
+- Per-product and per-variant pricing.
+- Company-specific negotiated prices.
+- Quantity-based discounts.
+- Configurable currency.
+- Effective dates for price changes.
+- Quote-specific prices.
+- Tax and shipping calculations where configured.
+- Price validity periods.
+- Clear display of the selected pricing tier.
+
+Define whether tiers apply to individual SKUs, individual variants, or eligible combined quantities. Make the rule explicit in the admin configuration.
+
+Do not automatically combine quantities across different boot models unless the configured pricing policy permits it.
+
+Calculate authoritative prices on the server. Never trust a client-submitted price, discount, subtotal, tax amount, or quote total.
+
+Use decimal-safe monetary calculations and explicit currency handling.
+
+#### Bulk quotation workflow
+
+The quote request form must support:
+
+**Step 1: Business information**
+- Company name.
+- Contact person.
+- Business email.
+- Phone number.
+- Country.
+- Company website, if available.
+- Business type.
+- Existing customer account, where applicable.
+
+**Step 2: Product requirements**
+- Multiple products.
+- SKU selection.
+- Quantity for each product.
+- Size breakdown.
+- Color and material.
+- Branding requirements.
+- Packaging specifications.
+- Requested samples.
+- Technical attachments, if supported.
+
+**Step 3: Commercial requirements**
+- Delivery destination.
+- Desired delivery date.
+- Preferred currency.
+- Target price, optionally.
+- Shipping or trade terms, if supported.
+- Payment preferences.
+- Additional notes.
+
+**Step 4: Review and submission**
+- Display a complete summary.
+- Show indicative prices only when valid pricing rules exist.
+- Explain which amounts remain subject to confirmation.
+- Submit the request to the backend.
+- Generate a unique reference number.
+- Confirm receipt without falsely promising acceptance or delivery.
+
+#### Admin quotation management
+
+Create a quotation inbox with:
+
+- New requests.
+- Under review.
+- Awaiting clarification.
+- Quotation prepared.
+- Sent to buyer.
+- Negotiation.
+- Accepted.
+- Rejected.
+- Expired.
+- Converted to order.
+- Cancelled.
+
+Allow authorized staff to:
+
+- Assign a sales representative.
+- Review requested products and quantities.
+- Propose or revise unit prices.
+- Add discounts and approved terms.
+- Set quotation expiry.
+- Specify estimated production and dispatch dates.
+- Add internal notes invisible to buyers.
+- Generate a branded PDF quotation.
+- Send the quotation through a configured email provider.
+- Record communications and status changes.
+- Convert an accepted quote into an order.
+- View a complete audit history.
+
+Quote acceptance must use the server-stored quotation version. If the quotation changes, require renewed acceptance when appropriate.
+
+### 9. Shopping Cart and Order Management
+
+Build a cart suitable for wholesale quantities.
+
+Support:
+
+- Multiple product lines.
+- Variant-specific quantities.
+- Size-assortment entry.
+- Carton-multiple validation.
+- Pricing tier updates.
+- Stock validation.
+- Shipping estimate where available.
+- Saved carts.
+- Bulk cart import, if feasible.
+- Quote-to-order conversion.
+- Purchase order reference numbers.
+- Draft and submitted orders.
+- Invoice generation.
+- Payment status.
+- Fulfillment status.
+- Shipment references.
+- Order history.
+- Repeat-order functionality.
+
+Support configurable order states, such as:
+
+Draft → Submitted → Confirmed → In Production or Processing → Ready to Dispatch → Shipped → Delivered.
+
+Allow cancellation, refunds, and returns only through controlled workflows and appropriate permissions.
+
+Do not mark an order as paid merely because a checkout button was clicked. Payment status must come from a trusted payment-provider confirmation or an explicitly authorized manual confirmation.
+
+If online payment integration is not configured, provide a clearly labeled request-to-order or invoice-based workflow rather than a fake checkout.
+
+### 10. Admin Portal: Complete Feature Requirements
+
+Build a dedicated administrative application with responsive layouts, searchable data tables, bulk actions, filters, pagination, detail views, and confirmation dialogs.
+
+#### A. Overview dashboard
+
+Include real, database-backed KPIs:
+
+- Gross order value.
+- Net sales.
+- Number of orders.
+- Average order value.
+- Total quotation requests.
+- Quotation conversion rate.
+- Outstanding quotation value.
+- Pending orders.
+- Revenue by date.
+- New business accounts.
+- Returning customers.
+- Top-selling products.
+- Low-stock products.
+- Recent orders.
+- Recent quotation requests.
+- Pending account approvals.
+
+Provide date ranges such as today, last 7 days, last 30 days, last 90 days, and custom range.
+
+Clearly define every metric. For example, distinguish requested quotation value from accepted quotation value, and accepted quotation value from completed sales.
+
+Do not count pending quotations as revenue.
+
+Support CSV export of relevant tables and reports. Protect exports using the same permissions as the underlying data.
+
+#### B. Analytics dashboard
+
+Create a dedicated analytics section with the following views.
+
+**Sales analytics**
+- Gross sales and net sales.
+- Sales trends over time.
+- Order count.
+- Average order value.
+- Sales by product and category.
+- Sales by customer.
+- Sales by country or destination.
+- Repeat-purchase performance.
+- Discounts and refunds.
+
+**Wholesale funnel analytics**
+- Product views.
+- Add-to-cart events.
+- Quote initiation.
+- Quote submission.
+- Quotations sent.
+- Quotations accepted.
+- Orders created.
+- Completed orders.
+
+Track and display conversion between stages where the required events are available.
+
+**Product analytics**
+- Most-viewed products.
+- Most-quoted products.
+- Most-ordered products.
+- Products with high inquiry volume but low conversion.
+- Search terms.
+- Filter usage.
+- Products with no views or no orders.
+- Variant and size demand.
+
+**Customer analytics**
+- New versus returning customers.
+- Account approval trends.
+- Purchase frequency.
+- Customer lifetime value when sufficient history exists.
+- Customer retention.
+- Geographic distribution.
+- Wholesale customer segments.
+
+**Inventory analytics**
+- Stock on hand.
+- Stock by size and color.
+- Low-stock items.
+- Out-of-stock products.
+- Stock movement.
+- Estimated inventory value, where cost data is available.
+- Slow-moving inventory.
+
+**Marketing and acquisition analytics**
+- Traffic sources.
+- Landing pages.
+- Campaign attribution.
+- Product page engagement.
+- Quote conversion by source.
+- Newsletter sign-ups.
+- Abandoned-cart events, if supported.
+
+Use a privacy-conscious analytics integration or a first-party event collection system. Document consent requirements and retention settings.
+
+The dashboard must differentiate actual commerce records from estimated or sampled visitor analytics.
+
+Do not fabricate traffic, sales, conversion rates, or customer counts. If there is no real data, display a useful empty state and offer clearly labeled demonstration data only in development or demo mode.
+
+**Chart requirements**
+- Accessible line charts for trends.
+- Bar charts for product and category comparisons.
+- Funnel charts for conversion stages.
+- Tables for precise values.
+- Date-range comparisons.
+- Tooltips with definitions.
+- Loading, error, and empty states.
+- Exportable reports.
+
+Use a consistent chart library and make the dashboard work on desktop and mobile.
+
+#### C. Product management
+
+Create product list, product detail, create, edit, archive, and bulk import screens.
+
+Allow administrators to manage:
+
+- Product details.
+- Categories.
+- Attributes.
+- Images.
+- Variants.
+- Size and color options.
+- SKU.
+- Inventory.
+- Price tiers.
+- Minimum quantities.
+- Carton rules.
+- Product visibility.
+- Featured products.
+- Related products.
+- SEO information.
+- Technical documents.
+
+#### D. Category management
+
+Allow administrators to create hierarchical categories, update slugs, upload category images, reorder categories, configure filters, and manage SEO descriptions.
+
+Changes must update the public catalog without a code deployment.
+
+#### E. Pricing management
+
+Provide interfaces for:
+
+- Global pricing defaults.
+- Product-specific tiers.
+- Variant-level prices.
+- Company-specific price lists.
+- Approved discounts.
+- Promotional periods.
+- Currency settings.
+- Minimum order requirements.
+- Price history and change audit logs.
+
+Only authorized roles may change commercial pricing.
+
+#### F. Customer and company management
+
+Include:
+
+- Account applications.
+- Approval and rejection.
+- Company details.
+- Business verification status.
+- Company users and roles.
+- Billing and shipping addresses.
+- Assigned sales representative.
+- Negotiated pricing.
+- Order history.
+- Quote history.
+- Internal notes.
+- Account suspension and reactivation.
+
+Do not store sensitive verification documents unless necessary and protected by an appropriate access policy.
+
+#### G. Order management
+
+Allow staff to review orders, confirm availability, manage statuses, record authorized manual payments, create invoices, update fulfillment, and maintain a complete activity log.
+
+#### H. Content management system
+
+The owner must be able to edit the website without changing source code.
+
+Create admin modules for:
+
+- Homepage hero content.
+- Promotional banners.
+- Featured products.
+- Category displays.
+- About-page content.
+- Manufacturing information.
+- Wholesale program content.
+- FAQ entries.
+- Testimonials.
+- Blog or editorial articles.
+- Navigation and footer links.
+- Contact details.
+- Legal pages.
+- SEO metadata.
+- Site-wide announcements.
+
+Use structured, validated content fields rather than an unrestricted HTML editor.
+
+#### I. Discounts and promotions
+
+Where commercially required, allow administrators to configure coupon codes, approved customer discounts, minimum spend, validity dates, eligibility, and usage limits.
+
+Prevent discount stacking unless explicitly permitted.
+
+#### J. Reports and exports
+
+Provide downloadable reports for:
+
+- Sales.
+- Orders.
+- Quotations.
+- Customer accounts.
+- Product performance.
+- Inventory.
+- Revenue by period.
+- Tax summaries, where configured.
+- Price changes and administrative activity.
+
+Support PDF or CSV where appropriate. Do not present management summaries as official tax documents unless the necessary legal and accounting requirements are met.
+
+#### K. Website settings
+
+Provide controls for:
+
+- Brand logo.
+- Favicon.
+- Brand colors.
+- Typography choices from approved options.
+- Contact information.
+- Default currency.
+- Supported currencies.
+- Supported countries.
+- Shipping settings.
+- Tax settings.
+- Notification preferences.
+- SEO defaults.
+- Analytics configuration.
+- Cookie consent settings.
+- Maintenance mode.
+- Footer and social links.
+
+Changes must be validated and audited.
+
+### 11. Recommended Technical Architecture
+
+Use a modern TypeScript-based stack unless the existing project has a strong reason to retain another technology.
+
+**Frontend**
+- Next.js with React and TypeScript.
+- Server-rendered or statically generated public pages where appropriate.
+- Tailwind CSS with a consistent design system.
+- Motion for React or Framer Motion for purposeful animations.
+- Accessible component primitives.
+- A maintained charting library for analytics.
+- Responsive image optimization.
+
+**Backend**
+- Next.js server handlers or a separate Node.js API, selected according to application complexity.
+- Validated request schemas.
+- Business logic isolated from presentation.
+- Centralized error handling.
+- Background jobs for email, reports, and other long-running tasks where necessary.
+
+**Database**
+- PostgreSQL.
+- Prisma ORM or an equivalent well-maintained ORM.
+- Database migrations.
+- Foreign-key constraints.
+- Unique indexes.
+- Appropriate transactional operations.
+- Decimal-safe monetary storage.
+
+**Supporting services**
+- Object storage for product imagery and private documents.
+- Transactional email provider.
+- Payment gateway if online payment is enabled.
+- Optional analytics provider.
+- Optional search service if catalog scale justifies it.
+
+Use environment variables for secrets and credentials. Provide an example environment file containing placeholders only.
+
+Do not expose database credentials, private API keys, admin secrets, or privileged service tokens in client-side code.
+
+If the existing repository already uses a different stack, inspect it first and adapt the architecture instead of replacing working infrastructure without justification.
+
+### 12. Core Database Entities
+
+Design a normalized, documented schema that includes, at minimum:
+
+- Users.
+- Roles and permissions.
+- Companies.
+- Company memberships.
+- Addresses.
+- Categories.
+- Products.
+- Product images.
+- Product attributes.
+- Product variants.
+- Inventory records.
+- Price tiers.
+- Customer price lists.
+- Quote requests.
+- Quote items.
+- Quotation versions.
+- Quotation activity history.
+- Orders.
+- Order items.
+- Invoices.
+- Payments.
+- Shipments.
+- Promotions.
+- Reviews, if enabled.
+- Content pages.
+- Media assets.
+- Analytics events or aggregated analytics.
+- Audit logs.
+- Notification records.
+- Site settings.
+
+Define relationships and deletion rules carefully.
+
+Use immutable snapshots for confirmed quotation and order line-item descriptions and prices so later product or pricing edits do not rewrite historical transactions.
+
+### 13. Authentication, Security, and Reliability
+
+Security is a release requirement, not a later enhancement.
+
+Implement:
+
+- Secure authentication.
+- Verified email where appropriate.
+- Password hashing through a suitable authentication framework.
+- Secure session management.
+- Role-based authorization.
+- Company-level data isolation.
+- Server-side validation.
+- Protection against common web vulnerabilities.
+- Rate limiting on sensitive endpoints.
+- Secure password-reset flows.
+- CSRF protection where applicable.
+- Secure upload validation.
+- Output encoding.
+- Audit logging.
+- Safe error messages.
+- Database backups and recovery procedures.
+- Monitoring and error reporting.
+- Dependency and security checks.
+
+Create explicit roles, such as:
+
+- Super administrator.
+- Store administrator.
+- Catalog manager.
+- Sales representative.
+- Inventory manager.
+- Finance staff.
+- Analytics viewer.
+- Wholesale company owner.
+- Wholesale purchasing user.
+
+Apply least-privilege permissions. A sales representative must not automatically gain access to payment credentials or unrelated companies' data.
+
+Ensure every protected endpoint independently verifies permissions. Hiding a button in the frontend is not authorization.
+
+Do not seed default production administrator credentials. Provide a secure first-administrator setup procedure.
+
+Document applicable privacy obligations based on the actual markets served. Do not claim legal compliance merely because a privacy page exists.
+
+### 14. Search Engine Optimization and Accessibility
+
+Implement:
+
+- Descriptive, stable URLs.
+- Unique page titles and descriptions.
+- Canonical URLs.
+- XML sitemap.
+- Robots directives.
+- Product and breadcrumb structured data where accurate.
+- Open Graph metadata.
+- Descriptive image alt text.
+- Proper heading hierarchy.
+- Internal links between products and categories.
+- Search-friendly category introductions.
+- Useful not-found pages.
+
+Use server-rendered product content where appropriate so search engines can discover important catalog information.
+
+Meet WCAG 2.2 AA as the accessibility target.
+
+Support keyboard navigation, visible focus, accessible form labels, screen-reader-friendly status announcements, adequate contrast, reduced-motion preferences, and accessible charts and tables.
+
+### 15. Performance Requirements
+
+Optimize for a fast, responsive experience on realistic mobile and desktop connections.
+
+Prioritize:
+
+- Responsive image delivery.
+- Modern image formats.
+- Lazy loading for below-the-fold imagery.
+- Server rendering where useful.
+- Efficient database queries.
+- Pagination for large datasets.
+- Caching for appropriate public data.
+- No unnecessary client-side JavaScript.
+- Minimal layout shift.
+- Stable loading skeletons.
+- Optimized animation.
+- Monitoring of real-world performance.
+
+Target strong Core Web Vitals and aim for a Lighthouse score of 90 or higher in Performance, Accessibility, Best Practices, and SEO where achievable. Treat this as a measurable target, not an assumed result.
+
+Do not sacrifice security or functionality to achieve a score.
+
+### 16. Notifications and Business Communication
+
+Implement configurable notifications for:
+
+- Wholesale account applications.
+- Account approval or rejection.
+- New quote requests.
+- Quote status changes.
+- Quotations sent to buyers.
+- Quotations nearing expiry.
+- Quote acceptance.
+- Order confirmation.
+- Payment status changes.
+- Shipping updates.
+- Low-stock alerts.
+- Password and account security events.
+
+Use a transactional email service configured through environment variables.
+
+Keep notification templates editable where practical. Record delivery attempts and failures.
+
+Do not expose internal notes or sensitive information in customer emails.
+
+### 17. Real Data, Demo Data, and Integrity
+
+Seed the development environment with realistic demonstration products so the full experience can be evaluated.
+
+Use clearly identified demo SKUs and sample products, such as:
+
+- Heritage Chelsea Boot.
+- Classic Lace-Up Work Boot.
+- Premium Chukka Boot.
+- Rugged Outdoor Leather Boot.
+- Formal Dress Boot.
+- Private-Label Custom Boot.
+
+Include illustrative size variants, color options, specifications, minimum quantities, price tiers, and lead times.
+
+Do not copy competitor product descriptions or images without authorization.
+
+Use licensed, owned, or appropriately sourced footwear images. Do not claim that stock images depict actual products manufactured by the business.
+
+Provide a demo dataset that demonstrates:
+
+- Multiple price tiers.
+- Multiple product categories.
+- Different inventory states.
+- Wholesale customer applications.
+- Quote requests at different stages.
+- Sample orders.
+- Product and sales analytics.
+- Administrative audit history.
+
+Keep demonstration data isolated from production. Never populate the live analytics dashboard with fabricated commercial activity.
+
+### 18. Testing and Quality Assurance
+
+Create automated tests for critical business behavior.
+
+**Pricing tests**
+- Quantity below minimum.
+- Exact minimum quantity.
+- Every tier boundary.
+- Quantity above the highest tier.
+- Variant-specific pricing.
+- Company-specific pricing.
+- Invalid carton quantities.
+- Expired pricing.
+- Concurrent price changes.
+- Unauthorized price manipulation.
+
+**Quotation tests**
+- Successful submission.
+- Invalid company information.
+- Multiple product lines.
+- Quantity and size validation.
+- Quote version changes.
+- Quote expiry.
+- Acceptance.
+- Conversion to order.
+- Unauthorized access to another company's quote.
+
+**Security tests**
+- Unauthorized admin access.
+- Cross-company data access.
+- Role escalation attempts.
+- Unsafe file uploads.
+- Request validation failures.
+- Sensitive information leakage.
+
+**Analytics tests**
+- Correct date filtering.
+- Correct aggregation.
+- Refund handling.
+- Deduplication where needed.
+- Exclusion of test data from production metrics.
+- Correct distinction between quotes and sales.
+
+**End-to-end tests**
+
+Cover a complete journey:
+
+1. A visitor browses the catalog.
+2. A buyer selects a product.
+3. The buyer enters a size assortment.
+4. The buyer submits a quotation request.
+5. A sales representative reviews the request.
+6. The representative prepares and sends a quote.
+7. The buyer accepts the quote.
+8. The system creates an order.
+9. An authorized staff member updates fulfillment.
+10. The analytics dashboard reflects the appropriate business events.
+
+Use a suitable test framework such as Playwright for end-to-end browser tests.
+
+### 19. Development Workflow
+
+Work incrementally. Do not attempt to implement every module in one enormous code generation step.
+
+**Phase 1 — Discovery and planning**
+
+- Inspect the repository and current technology stack.
+- Identify existing functionality and constraints.
+- Conduct the reference-site design audit.
+- Define the route map.
+- Define the database schema.
+- Establish the design system.
+- Produce a feature matrix and implementation plan.
+
+**Phase 2 — Visual foundation**
+
+- Implement typography, colors, spacing, buttons, forms, and layout primitives.
+- Build the responsive navigation.
+- Create the homepage.
+- Build catalog and product detail templates.
+- Add and refine purposeful motion.
+
+**Phase 3 — Commerce foundation**
+
+- Implement database migrations.
+- Build catalog APIs.
+- Implement variant and inventory handling.
+- Build the server-side pricing engine.
+- Implement the cart and quote list.
+
+**Phase 4 — Buyer portal**
+
+- Implement authentication.
+- Add business applications.
+- Implement company accounts and permissions.
+- Add customer-specific pricing.
+- Build quote history and order history.
+
+**Phase 5 — Administration**
+
+- Build the admin shell and navigation.
+- Implement product and category management.
+- Implement price management.
+- Implement quote and order management.
+- Add the content management system.
+- Add roles, audit logs, and site settings.
+
+**Phase 6 — Analytics**
+
+- Define event schemas and KPI definitions.
+- Implement reliable event collection.
+- Build database-backed dashboard queries.
+- Implement date filters, charts, exports, and empty states.
+- Verify all metrics against test records.
+
+**Phase 7 — Integration and hardening**
+
+- Integrate email and payment services if configured.
+- Run migrations and automated tests.
+- Test permissions and company data isolation.
+- Audit dependencies.
+- Test mobile responsiveness and accessibility.
+- Validate SEO and performance.
+- Document deployment and backup procedures.
+
+Use meaningful commits and keep each phase in a working state. Do not mark a phase complete merely because its pages have been generated.
+
+### 20. Definition of Done
+
+The project is complete only when all applicable criteria are satisfied:
+
+- Every required public page has a working route.
+- Product and category data comes from the database.
+- Search and filters work against real catalog records.
+- Product variants and size breakdowns function correctly.
+- Tiered pricing is calculated and validated on the server.
+- Wholesale account applications can be reviewed.
+- Buyers can submit bulk quotation requests.
+- Staff can prepare and send quotations.
+- Quote acceptance follows the correct workflow.
+- Orders retain their historical prices.
+- The owner can manage catalog content through the admin portal.
+- The owner can manage products, categories, pricing, quotations, customers, and orders.
+- Analytics KPIs are based on real records or clearly identified demo data.
+- Role-based permissions are enforced on the server.
+- Forms, loading states, errors, empty states, and success states are implemented.
+- Motion is responsive and accessible.
+- Critical automated tests pass.
+- Deployment, environment variables, database migrations, and recovery instructions are documented.
+
+### 21. Required Final Deliverables
+
+At the end of development, provide:
+
+1. A working storefront with separate pages.
+2. A functional buyer account portal.
+3. A protected admin portal.
+4. A database schema and migration files.
+5. A working tiered-pricing engine.
+6. A complete quotation workflow.
+7. Product, customer, and order management.
+8. A real analytics dashboard.
+9. A structured content-management interface.
+10. A reusable design system and motion system.
+11. Realistic development seed data.
+12. Automated tests and their execution results.
+13. An environment-variable template.
+14. Setup and deployment instructions.
+15. A list of completed features, incomplete features, external integrations still requiring credentials, and known limitations.
+
+### 22. Mandatory Instructions to the Development Agent
+
+- First inspect the existing project and its instructions before making changes.
+- Do not overwrite working code without understanding its purpose.
+- Do not generate only a homepage and claim the platform is complete.
+- Do not create nonfunctional buttons, fake charts, dead navigation links, or placeholder forms presented as finished features.
+- Do not hardcode production products, prices, users, orders, or analytics.
+- Do not invent business credentials, certifications, reviews, stock levels, or manufacturing claims.
+- Do not expose secrets in client-side code.
+- Do not trust prices submitted by the browser.
+- Do not let one wholesale customer access another customer's private information.
+- Do not replace meaningful product imagery with generic abstract graphics.
+- Do not add animations that obstruct purchasing or administration.
+- Do not silently skip failed requirements.
+- If a third-party integration needs credentials, implement the appropriate integration boundary, document the required setup, and clearly indicate what remains unconfigured.
+- If a feature cannot be completed, explain why and identify the remaining implementation work.
+
+**Start now with repository inspection, reference research, the proposed architecture, route map, data model, and visual design direction. Then implement the platform in phases, verifying functionality at every stage. Prioritize a distinctive premium experience, trustworthy wholesale operations, and a genuinely useful admin portal over superficial visual complexity.**
