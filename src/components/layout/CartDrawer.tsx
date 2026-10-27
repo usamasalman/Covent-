@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useApp } from '../../context/AppContext';
 import { formatCurrency, validateCartonMultiple, calculateCartSummary } from '../../utils/pricingEngine';
 import { X, Trash2, ArrowRight, ShieldCheck, Box, AlertTriangle, FileText, CheckCircle2 } from 'lucide-react';
+import { ContainerLoadBar } from '../cart/ContainerLoadBar';
 
 export const CartDrawer: React.FC = () => {
   const {
@@ -335,7 +336,10 @@ export const CartDrawer: React.FC = () => {
           {/* Footer Totals & Action */}
           {cart.length > 0 && checkoutStep === 'cart' && (
             <div className="p-6 border-t border-[#E8E0D5] bg-[#F4EFEB] space-y-4">
-              <div className="space-y-1.5 text-xs">
+              {/* Freight Container Utilization Indicator */}
+              <ContainerLoadBar totalPairs={summary.totalPairs} />
+
+              <div className="space-y-1.5 text-xs pt-1">
                 <div className="flex justify-between text-[#685A4E]">
                   <span>Total Footwear Pairs:</span>
                   <span className="font-semibold text-[#241C16] tabular-nums">{summary.totalPairs} pairs</span>

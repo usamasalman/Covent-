@@ -1,7 +1,11 @@
 import React, { useState, useMemo } from 'react';
 import { useApp } from '../../context/AppContext';
 import { formatCurrency, calculateTierPrice, validateCartonMultiple } from '../../utils/pricingEngine';
-import { ArrowLeft, ArrowRight, Check, ShieldCheck, Box, Download, FileText, ChevronRight, Layers, Sparkles } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, ShieldCheck, Box, Download, FileText, ChevronRight, Layers, Sparkles, RotateCw, Flame } from 'lucide-react';
+import { LeatherPatinaSimulator } from '../ui/LeatherPatinaSimulator';
+import { GoodyearWeltExplodedDiagram } from '../ui/GoodyearWeltExplodedDiagram';
+import { TurntableModal } from '../ui/TurntableModal';
+import { ScrollReveal } from '../ui/ScrollReveal';
 
 export const ProductDetailPage: React.FC = () => {
   const { products, routeParam, navigateTo, addToCart, currentUser, addToast } = useApp();
@@ -13,6 +17,7 @@ export const ProductDetailPage: React.FC = () => {
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [selectedColor, setSelectedColor] = useState(product.colors[0] || { name: 'Standard', hex: '#3B2A1E', code: 'STD' });
+  const [isTurntableOpen, setIsTurntableOpen] = useState(false);
 
   // Size assortment quantities keyed by sizeUs
   const [assortment, setAssortment] = useState<Record<string, number>>(() => {
@@ -66,7 +71,6 @@ export const ProductDetailPage: React.FC = () => {
   };
 
   const handleDownloadSpecSheet = () => {
-    // Generate text/csv spec summary
     const specData = `
 COVENT & STONE SPECIFICATION SHEET
 Product: ${product.name}
@@ -114,11 +118,11 @@ Weight: ${product.weightGrams}g / half-pair (Size US 9)
         
         {/* Gallery Column (5 cols) */}
         <div className="lg:col-span-5 space-y-4 lg:sticky lg:top-28">
-          <div className="relative aspect-4/3 bg-[#F4EFEB] rounded-lg border border-[#E5DDD2] overflow-hidden shadow-xs">
+          <div className="relative aspect-4/3 bg-[#F8F5F1] rounded-xl border border-[#E5DDD2] overflow-hidden shadow-xs group flex items-center justify-center p-2">
             <img
               src={product.images[activeImageIndex] || product.images[0]}
               alt={product.name}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
               referrerPolicy="no-referrer"
             />
             <div className="absolute top-3 left-3 bg-[#241B16]/85 backdrop-blur-xs text-[#FAF7F2] text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded">
@@ -127,6 +131,15 @@ Weight: ${product.weightGrams}g / half-pair (Size US 9)
             <div className="absolute bottom-3 left-3 bg-white/90 backdrop-blur-xs text-[#241B16] text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded border border-[#DDD3C5]">
               {product.construction}
             </div>
+
+            {/* 360° Studio Trigger Button */}
+            <button
+              onClick={() => setIsTurntableOpen(true)}
+              className="absolute bottom-3 right-3 bg-[#241B16] hover:bg-black text-amber-300 px-3 py-1.5 rounded-lg text-xs font-semibold shadow-lg transition-all flex items-center gap-1.5 border border-amber-500/30 cursor-pointer"
+            >
+              <RotateCw className="w-3.5 h-3.5 animate-spin-slow" />
+              <span>Inspect in 360° Studio</span>
+            </button>
           </div>
 
           {/* Thumbnail list */}
@@ -268,7 +281,6 @@ Weight: ${product.weightGrams}g / half-pair (Size US 9)
               </div>
               <button
                 onClick={() => {
-                  // Distribute evenly to 24 pairs
                   const distributed: Record<string, number> = {};
                   product.sizes.forEach((s, idx) => {
                     distributed[s.us] = idx >= 1 && idx <= 4 ? 6 : 0;
@@ -380,6 +392,29 @@ Weight: ${product.weightGrams}g / half-pair (Size US 9)
 
         </div>
       </div>
+
+      {/* Interactive Leather Patina & Aging Simulator */}
+      <ScrollReveal direction="up">
+        <LeatherPatinaSimulator
+          productImage={product.images[0]}
+          productName={product.name}
+          leatherType={product.leatherType}
+        />
+      </ScrollReveal>
+
+      {/* Interactive Goodyear Welt Cutaway Diagram */}
+      <ScrollReveal direction="up">
+        <GoodyearWeltExplodedDiagram />
+      </ScrollReveal>
+
+      {/* 360 Turntable Modal */}
+      <TurntableModal
+        isOpen={isTurntableOpen}
+        onClose={() => setIsTurntableOpen(false)}
+        product={product}
+        productName={product.name}
+        sku={product.sku}
+      />
     </div>
   );
 };

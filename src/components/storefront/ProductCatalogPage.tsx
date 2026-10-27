@@ -294,13 +294,13 @@ export const ProductCatalogPage: React.FC = () => {
               className="group bg-white rounded-lg border border-[#E5DDD2] overflow-hidden hover:shadow-md transition-all flex flex-col"
             >
               <div
-                className="relative aspect-4/3 bg-[#F4EFEB] overflow-hidden cursor-pointer"
+                className="relative aspect-4/3 bg-[#F8F5F1] overflow-hidden cursor-pointer flex items-center justify-center p-2"
                 onClick={() => navigateTo('products', boot.slug)}
               >
                 <img
                   src={boot.images[0]}
                   alt={boot.name}
-                  className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
+                  className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute top-3 left-3 bg-[#241B16]/85 backdrop-blur-xs text-[#FAF7F2] text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded">

@@ -27,8 +27,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     moq: 24,
     cartonMultiple: 12,
     images: [
-      '/src/assets/images/chelsea_boot_walnut_1793033837576.jpg',
-      '/src/assets/images/hero_leather_boots_1793033837355.jpg'
+      '/assets/images/chelsea_boot_walnut_1793033837576.jpg',
+      '/assets/images/hero_leather_boots_1793033837355.jpg'
     ],
     colors: [
       { name: 'Walnut Espresso', hex: '#34231E', code: 'WAL' },
@@ -83,8 +83,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     moq: 24,
     cartonMultiple: 12,
     images: [
-      '/src/assets/images/laceup_work_boot_1793033839697.jpg',
-      '/src/assets/images/hero_leather_boots_1793033837355.jpg'
+      '/assets/images/laceup_work_boot_1793033839697.jpg',
+      '/assets/images/hero_leather_boots_1793033837355.jpg'
     ],
     colors: [
       { name: 'Cognac Amber', hex: '#7C3F1B', code: 'COG' },
@@ -139,8 +139,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     moq: 24,
     cartonMultiple: 12,
     images: [
-      '/src/assets/images/dress_oxford_boot_1793033839140.jpg',
-      '/src/assets/images/craftsmanship_workshop_1793033838284.jpg'
+      '/assets/images/dress_oxford_boot_1793033839140.jpg',
+      '/assets/images/craftsmanship_workshop_1793033838284.jpg'
     ],
     colors: [
       { name: 'Oxblood Burgundy', hex: '#4A1521', code: 'OXB' },
@@ -194,8 +194,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     moq: 24,
     cartonMultiple: 12,
     images: [
-      '/src/assets/images/hero_leather_boots_1793033837355.jpg',
-      '/src/assets/images/laceup_work_boot_1793033839697.jpg'
+      '/assets/images/hero_leather_boots_1793033837355.jpg',
+      '/assets/images/laceup_work_boot_1793033839697.jpg'
     ],
     colors: [
       { name: 'Dark Oak', hex: '#3B2A1E', code: 'OAK' },
@@ -247,7 +247,7 @@ export const INITIAL_PRODUCTS: Product[] = [
     moq: 24,
     cartonMultiple: 12,
     images: [
-      '/src/assets/images/chelsea_boot_walnut_1793033837576.jpg'
+      '/assets/images/chelsea_boot_walnut_1793033837576.jpg'
     ],
     colors: [
       { name: 'Snuff Tobacco', hex: '#6E472D', code: 'SNF' },
@@ -301,8 +301,8 @@ export const INITIAL_PRODUCTS: Product[] = [
     moq: 50,
     cartonMultiple: 12,
     images: [
-      '/src/assets/images/craftsmanship_workshop_1793033838284.jpg',
-      '/src/assets/images/hero_leather_boots_1793033837355.jpg'
+      '/assets/images/craftsmanship_workshop_1793033838284.jpg',
+      '/assets/images/hero_leather_boots_1793033837355.jpg'
     ],
     colors: [
       { name: 'Custom Pantone Dye', hex: '#52443B', code: 'OEM' }
@@ -321,6 +321,364 @@ export const INITIAL_PRODUCTS: Product[] = [
     isCustomizable: true,
     status: 'active',
     createdAt: '2026-02-12'
+  },
+  {
+    id: 'prod-007',
+    name: 'Bespoke Ostrich Heart-Stitch Western Boot',
+    slug: 'bespoke-ostrich-heart-stitch-western-boot',
+    sku: 'CST-WST-007',
+    category: 'Western & Cowboy Boots',
+    categorySlug: 'western-boots',
+    subCategory: 'Exotic Leather Cowboy',
+    gender: 'Unisex',
+    style: 'Western & Cowboy',
+    tagline: 'Authentic Olive Green Ostrich vamp with ivory shaft & hand-stitched heart embroidery',
+    description: 'A showstopping western boot featuring a full quill olive green ostrich vamp paired with a pristine ivory leather shaft decorated with intricate heart embroidery stitchwork. Built with a lemonwood-pegged arch, stacked leather heel, and double-stitched storm welt.',
+    leatherType: 'Full-Quill Ostrich Vamp & Veg-Tan Shaft',
+    leatherGrade: 'Grade AA Exotic Leather',
+    upperMaterial: 'Full-Quill Ostrich & Calfskin',
+    liningMaterial: 'Soft Calfskin Shaft Lining',
+    outsoleMaterial: 'Hand-Finished Argentine Veg-Tan Leather Sole',
+    construction: 'Goodyear Welted (360°)',
+    countryOfOrigin: 'Leon, Mexico',
+    careInstructions: 'Clean with delicate exotic leather conditioner and soft cloth.',
+    weightGrams: 820,
+    featured: true,
+    leadTimeWeeks: '4-5 Weeks',
+    moq: 24,
+    cartonMultiple: 12,
+    images: [
+      '/assets/aistudio/0176322e-9832-43b3-83ca-0c37c0d9273a_add62fbd.jpg'
+    ],
+    colors: [
+      { name: 'Olive Ostrich / Ivory', hex: '#5B6834', code: 'OLV' }
+    ],
+    sizes: [
+      { us: '8.0', uk: '7.0', eu: '41', stock: 75 },
+      { us: '8.5', uk: '7.5', eu: '41.5', stock: 110 },
+      { us: '9.0', uk: '8.0', eu: '42', stock: 140 },
+      { us: '9.5', uk: '8.5', eu: '42.5', stock: 130 },
+      { us: '10.0', uk: '9.0', eu: '43', stock: 150 },
+      { us: '10.5', uk: '9.5', eu: '43.5', stock: 90 },
+      { us: '11.0', uk: '10.0', eu: '44', stock: 65 }
+    ],
+    tiers: [
+      { minQty: 24, maxQty: 49, unitPrice: 92, label: '24–49 pairs' },
+      { minQty: 50, maxQty: 99, unitPrice: 84, label: '50–99 pairs' },
+      { minQty: 100, maxQty: 249, unitPrice: 76, label: '100–249 pairs' },
+      { minQty: 250, maxQty: null, unitPrice: 68, label: '250+ pairs' }
+    ],
+    sampleAvailable: true,
+    samplePrice: 135,
+    isCustomizable: true,
+    status: 'active',
+    createdAt: '2026-02-18'
+  },
+  {
+    id: 'prod-008',
+    name: 'High-Roller Casino Embossed Cowboy Boot',
+    slug: 'high-roller-casino-embossed-cowboy-boot',
+    sku: 'CST-WST-008',
+    category: 'Western & Cowboy Boots',
+    categorySlug: 'western-boots',
+    subCategory: 'Statement Western',
+    gender: 'Unisex',
+    style: 'Western & Cowboy',
+    tagline: 'Black suede vamp with ivory card suit & slot machine red embroidery',
+    description: 'High-octane western tailoring featuring a velvety jet-black roughout suede vamp and a stark white shaft adorned with red embroidered playing cards, dice, 8-balls, and slot machine symbols. Finished with a square toe, slanted riding heel, and spur ridge.',
+    leatherType: 'Black Roughout Suede & White Nappa Leather',
+    leatherGrade: 'Premium Heavy Suede',
+    upperMaterial: 'Roughout Suede & Calfskin Shaft',
+    liningMaterial: 'Breathable Glove Calfskin',
+    outsoleMaterial: 'Oiled Heavy Leather Sole with Brass Nails',
+    construction: 'Goodyear Welted (360°)',
+    countryOfOrigin: 'Leon, Mexico',
+    careInstructions: 'Brush suede vamp with crepe brush; wipe shaft with damp leather cloth.',
+    weightGrams: 840,
+    featured: true,
+    leadTimeWeeks: '4-5 Weeks',
+    moq: 24,
+    cartonMultiple: 12,
+    images: [
+      '/assets/aistudio/07f01009-8044-4e64-afa6-20fcc5858da6_00fbf388.jpg'
+    ],
+    colors: [
+      { name: 'Vegas Black / White', hex: '#111111', code: 'VGS' }
+    ],
+    sizes: [
+      { us: '8.0', uk: '7.0', eu: '41', stock: 60 },
+      { us: '8.5', uk: '7.5', eu: '41.5', stock: 95 },
+      { us: '9.0', uk: '8.0', eu: '42', stock: 120 },
+      { us: '9.5', uk: '8.5', eu: '42.5', stock: 110 },
+      { us: '10.0', uk: '9.0', eu: '43', stock: 130 },
+      { us: '10.5', uk: '9.5', eu: '43.5', stock: 85 }
+    ],
+    tiers: [
+      { minQty: 24, maxQty: 49, unitPrice: 88, label: '24–49 pairs' },
+      { minQty: 50, maxQty: 99, unitPrice: 79, label: '50–99 pairs' },
+      { minQty: 100, maxQty: 249, unitPrice: 71, label: '100–249 pairs' },
+      { minQty: 250, maxQty: null, unitPrice: 64, label: '250+ pairs' }
+    ],
+    sampleAvailable: true,
+    samplePrice: 125,
+    isCustomizable: true,
+    status: 'active',
+    createdAt: '2026-02-20'
+  },
+  {
+    id: 'prod-009',
+    name: 'Artisanal Monogram Suede Western Boot',
+    slug: 'artisanal-monogram-suede-western-boot',
+    sku: 'CST-WST-009',
+    category: 'Western & Cowboy Boots',
+    categorySlug: 'western-boots',
+    subCategory: 'Heritage Custom Western',
+    gender: 'Unisex',
+    style: 'Western & Cowboy',
+    tagline: 'Embossed alligator-texture black vamp with sandstone suede embroidered shaft',
+    description: 'An executive western silhouette combining a textured black alligator-grain leather foot with a rich sandstone suede upper featuring custom monogram pulls and flame stitching. Ideal for bespoke retail collections and boutique western programs.',
+    leatherType: 'Embossed Crocodile Calf & Tuscan Suede',
+    leatherGrade: 'Grade A Veg-Tan Leather',
+    upperMaterial: 'Embossed Leather Foot & Suede Shaft',
+    liningMaterial: 'Soft Tan Calfskin Lining',
+    outsoleMaterial: 'Hand-Cut Double Leather Sole',
+    construction: 'Goodyear Welted (360°)',
+    countryOfOrigin: 'Almansa, Spain',
+    careInstructions: 'Apply wax polish to foot section; protect suede shaft with nanomister.',
+    weightGrams: 790,
+    featured: true,
+    leadTimeWeeks: '4-5 Weeks',
+    moq: 24,
+    cartonMultiple: 12,
+    images: [
+      '/assets/aistudio/6f528181-2367-4a19-a47f-8789cf085567_c6a3f7e2.jpg'
+    ],
+    colors: [
+      { name: 'Onyx Alligator / Sandstone', hex: '#2B2825', code: 'OAS' }
+    ],
+    sizes: [
+      { us: '8.0', uk: '7.0', eu: '41', stock: 85 },
+      { us: '8.5', uk: '7.5', eu: '41.5', stock: 120 },
+      { us: '9.0', uk: '8.0', eu: '42', stock: 150 },
+      { us: '9.5', uk: '8.5', eu: '42.5', stock: 135 },
+      { us: '10.0', uk: '9.0', eu: '43', stock: 140 },
+      { us: '11.0', uk: '10.0', eu: '44', stock: 80 }
+    ],
+    tiers: [
+      { minQty: 24, maxQty: 49, unitPrice: 86, label: '24–49 pairs' },
+      { minQty: 50, maxQty: 99, unitPrice: 78, label: '50–99 pairs' },
+      { minQty: 100, maxQty: 249, unitPrice: 70, label: '100–249 pairs' },
+      { minQty: 250, maxQty: null, unitPrice: 62, label: '250+ pairs' }
+    ],
+    sampleAvailable: true,
+    samplePrice: 120,
+    isCustomizable: true,
+    status: 'active',
+    createdAt: '2026-02-22'
+  },
+  {
+    id: 'prod-010',
+    name: 'Equestrian Magenta Suede Western Boot',
+    slug: 'equestrian-magenta-suede-western-boot',
+    sku: 'CST-WST-010',
+    category: 'Western & Cowboy Boots',
+    categorySlug: 'western-boots',
+    subCategory: 'Suede Western',
+    gender: 'Women',
+    style: 'Western & Cowboy',
+    tagline: 'Electric magenta reverse calf suede vamp with ivory stitched tall shaft',
+    description: 'Vibrant runway fashion meets authentic equestrian construction. Features butter-soft Italian reverse calf suede in brilliant magenta purple, paired with a white calfskin shaft and intricate multi-row needle stitching. Completed with a leather spur lip and stacked cuban heel.',
+    leatherType: 'Italian Magenta Suede & White Nappa Calf',
+    leatherGrade: 'Silk Suede Grade A',
+    upperMaterial: 'Calf Suede & Full Grain Leather',
+    liningMaterial: 'Glove Calf Lining',
+    outsoleMaterial: 'Single Leather Sole with Rubber Traction Pad',
+    construction: 'Goodyear Welted (360°)',
+    countryOfOrigin: 'Florence, Italy',
+    careInstructions: 'Protect with suede protector spray and brass suede brush.',
+    weightGrams: 720,
+    featured: true,
+    leadTimeWeeks: '3-4 Weeks',
+    moq: 24,
+    cartonMultiple: 12,
+    images: [
+      '/assets/aistudio/b05d2d45-bcf6-4201-955e-9741e94c9d3c_fe17a406.jpg'
+    ],
+    colors: [
+      { name: 'Magenta Velvet / Ivory', hex: '#8E1B57', code: 'MAG' }
+    ],
+    sizes: [
+      { us: '6.0', uk: '4.0', eu: '37', stock: 90 },
+      { us: '7.0', uk: '5.0', eu: '38', stock: 140 },
+      { us: '8.0', uk: '6.0', eu: '39', stock: 180 },
+      { us: '8.5', uk: '6.5', eu: '39.5', stock: 150 },
+      { us: '9.0', uk: '7.0', eu: '40', stock: 120 },
+      { us: '10.0', uk: '8.0', eu: '41', stock: 70 }
+    ],
+    tiers: [
+      { minQty: 24, maxQty: 49, unitPrice: 84, label: '24–49 pairs' },
+      { minQty: 50, maxQty: 99, unitPrice: 76, label: '50–99 pairs' },
+      { minQty: 100, maxQty: 249, unitPrice: 68, label: '100–249 pairs' },
+      { minQty: 250, maxQty: null, unitPrice: 60, label: '250+ pairs' }
+    ],
+    sampleAvailable: true,
+    samplePrice: 118,
+    isCustomizable: true,
+    status: 'active',
+    createdAt: '2026-02-25'
+  },
+  {
+    id: 'prod-011',
+    name: 'Rose Alligator-Grain Winged Western Boot',
+    slug: 'rose-alligator-grain-winged-western-boot',
+    sku: 'CST-WST-011',
+    category: 'Western & Cowboy Boots',
+    categorySlug: 'western-boots',
+    subCategory: 'Exotic Embossed',
+    gender: 'Women',
+    style: 'Western & Cowboy',
+    tagline: 'Dusty rose alligator embossed leather foot with embroidered eagle wings shaft',
+    description: 'An extraordinary luxury western boot featuring hand-dyed rose alligator embossed leather on the foot and heel counter. The tall ivory shaft is detailed with delicate pink wing threadwork. Hand-pegged arch support and polished veg-tan outsole.',
+    leatherType: 'Embossed Alligator Veg-Tan Leather',
+    leatherGrade: 'Grade AA French Calf',
+    upperMaterial: 'Embossed Calfskin & Smooth Nappa',
+    liningMaterial: '100% Calfskin Lining',
+    outsoleMaterial: 'Leather Sole with Inked Edges',
+    construction: 'Goodyear Welted (360°)',
+    countryOfOrigin: 'Porto, Portugal',
+    careInstructions: 'Clean gently with leather balm and soft microfiber cloth.',
+    weightGrams: 760,
+    featured: true,
+    leadTimeWeeks: '4 Weeks',
+    moq: 24,
+    cartonMultiple: 12,
+    images: [
+      '/assets/aistudio/78d6d521-3773-4a82-90b1-83c1960db6e5_2212bde3.jpg'
+    ],
+    colors: [
+      { name: 'Dusty Rose Alligator', hex: '#B85273', code: 'ROS' }
+    ],
+    sizes: [
+      { us: '6.5', uk: '4.5', eu: '37.5', stock: 80 },
+      { us: '7.0', uk: '5.0', eu: '38', stock: 130 },
+      { us: '7.5', uk: '5.5', eu: '38.5', stock: 140 },
+      { us: '8.0', uk: '6.0', eu: '39', stock: 160 },
+      { us: '8.5', uk: '6.5', eu: '39.5', stock: 120 },
+      { us: '9.0', uk: '7.0', eu: '40', stock: 90 }
+    ],
+    tiers: [
+      { minQty: 24, maxQty: 49, unitPrice: 89, label: '24–49 pairs' },
+      { minQty: 50, maxQty: 99, unitPrice: 80, label: '50–99 pairs' },
+      { minQty: 100, maxQty: 249, unitPrice: 72, label: '100–249 pairs' },
+      { minQty: 250, maxQty: null, unitPrice: 65, label: '250+ pairs' }
+    ],
+    sampleAvailable: true,
+    samplePrice: 130,
+    isCustomizable: true,
+    status: 'active',
+    createdAt: '2026-03-01'
+  },
+  {
+    id: 'prod-012',
+    name: 'Plum Phoenix Embroidered Western Boot',
+    slug: 'plum-phoenix-embroidered-western-boot',
+    sku: 'CST-WST-012',
+    category: 'Western & Cowboy Boots',
+    categorySlug: 'western-boots',
+    subCategory: 'Suede Western',
+    gender: 'Women',
+    style: 'Western & Cowboy',
+    tagline: 'Deep plum suede foot with white shaft & phoenix wing stitch flourish',
+    description: 'A striking statement piece crafted with a luxurious deep plum suede foot and a tall white shaft displaying outstretched phoenix wing embroidery. Features a broad square toe, lemonwood pegs, and storm welted sole.',
+    leatherType: 'Italian Plum Suede & White Nappa',
+    leatherGrade: 'Grade A Calfskin',
+    upperMaterial: 'Calf Suede & Smooth Calfskin',
+    liningMaterial: 'Calfskin Quarter & Vamp Lining',
+    outsoleMaterial: 'Heavy Leather Sole with Rubber Tap',
+    construction: 'Goodyear Welted (360°)',
+    countryOfOrigin: 'Leon, Mexico',
+    careInstructions: 'Protect with suede nano-waterproofing spray.',
+    weightGrams: 740,
+    featured: true,
+    leadTimeWeeks: '3-4 Weeks',
+    moq: 24,
+    cartonMultiple: 12,
+    images: [
+      '/assets/aistudio/d03f4f0f-3126-4ea9-b790-b3b052e93461_dcd65a43.jpg'
+    ],
+    colors: [
+      { name: 'Deep Plum / White', hex: '#632043', code: 'PLM' }
+    ],
+    sizes: [
+      { us: '6.0', uk: '4.0', eu: '37', stock: 85 },
+      { us: '7.0', uk: '5.0', eu: '38', stock: 125 },
+      { us: '8.0', uk: '6.0', eu: '39', stock: 155 },
+      { us: '8.5', uk: '6.5', eu: '39.5', stock: 130 },
+      { us: '9.0', uk: '7.0', eu: '40', stock: 100 }
+    ],
+    tiers: [
+      { minQty: 24, maxQty: 49, unitPrice: 82, label: '24–49 pairs' },
+      { minQty: 50, maxQty: 99, unitPrice: 74, label: '50–99 pairs' },
+      { minQty: 100, maxQty: 249, unitPrice: 66, label: '100–249 pairs' },
+      { minQty: 250, maxQty: null, unitPrice: 59, label: '250+ pairs' }
+    ],
+    sampleAvailable: true,
+    samplePrice: 115,
+    isCustomizable: true,
+    status: 'active',
+    createdAt: '2026-03-05'
+  },
+  {
+    id: 'prod-013',
+    name: 'Bespoke Hand-Burnished Atelier Dress Boot',
+    slug: 'bespoke-hand-burnished-atelier-dress-boot',
+    sku: 'CST-DRS-013',
+    category: 'Dress Boots',
+    categorySlug: 'dress-boots',
+    subCategory: 'Executive Formal',
+    gender: 'Men',
+    style: 'Dress',
+    tagline: 'Chestnut hand-patinated Italian calfskin with medallion brogued toe cap',
+    description: 'An executive dress boot featuring hand-stained chestnut patina with subtle dark gradient shadowing along the welt and toe medallion. Designed with closed-channel leather soling, brass eyelets, and hand-beveled waist.',
+    leatherType: 'Italian Crust Calfskin (Hand-Patinated)',
+    leatherGrade: 'Supreme Full Grain Crust',
+    upperMaterial: 'Hand-Finished Italian Calfskin',
+    liningMaterial: '100% Glove Calfskin Lining',
+    outsoleMaterial: 'Argentine Leather Sole with Inked Edges',
+    construction: 'Goodyear Welted (360°)',
+    countryOfOrigin: 'Almansa, Spain',
+    careInstructions: 'Apply natural cream polish and buff with horsehair brush.',
+    weightGrams: 610,
+    featured: true,
+    leadTimeWeeks: '4 Weeks',
+    moq: 24,
+    cartonMultiple: 12,
+    images: [
+      '/assets/aistudio/image_86c6e33c.png'
+    ],
+    colors: [
+      { name: 'Chestnut Patina', hex: '#68361C', code: 'CHB' }
+    ],
+    sizes: [
+      { us: '8.0', uk: '7.0', eu: '41', stock: 100 },
+      { us: '8.5', uk: '7.5', eu: '41.5', stock: 150 },
+      { us: '9.0', uk: '8.0', eu: '42', stock: 190 },
+      { us: '9.5', uk: '8.5', eu: '42.5', stock: 170 },
+      { us: '10.0', uk: '9.0', eu: '43', stock: 180 },
+      { us: '10.5', uk: '9.5', eu: '43.5', stock: 130 },
+      { us: '11.0', uk: '10.0', eu: '44', stock: 95 }
+    ],
+    tiers: [
+      { minQty: 24, maxQty: 49, unitPrice: 78, label: '24–49 pairs' },
+      { minQty: 50, maxQty: 99, unitPrice: 70, label: '50–99 pairs' },
+      { minQty: 100, maxQty: 249, unitPrice: 63, label: '100–249 pairs' },
+      { minQty: 250, maxQty: null, unitPrice: 56, label: '250+ pairs' }
+    ],
+    sampleAvailable: true,
+    samplePrice: 110,
+    isCustomizable: true,
+    status: 'active',
+    createdAt: '2026-03-08'
   }
 ];
 
@@ -328,8 +686,14 @@ export const CATEGORIES = [
   {
     name: 'All Boots & Shoes',
     slug: 'all',
-    count: 6,
+    count: 13,
     description: 'Explore the complete master wholesale collection of handcrafted footwear.'
+  },
+  {
+    name: 'Western & Cowboy Boots',
+    slug: 'western-boots',
+    count: 6,
+    description: 'Exotic ostrich, suede, embroidered, and statement western boots built with Goodyear welted soles.'
   },
   {
     name: 'Chelsea Boots',
@@ -346,7 +710,7 @@ export const CATEGORIES = [
   {
     name: 'Dress Boots',
     slug: 'dress-boots',
-    count: 1,
+    count: 2,
     description: 'Formal Balmoral and Oxford silhouette boots hand-burnished for executive retail and formal collections.'
   },
   {
@@ -378,7 +742,7 @@ export const INITIAL_QUOTES: QuoteRequest[] = [
         productId: 'prod-001',
         productName: 'Heritage Chelsea Boot',
         sku: 'CST-CHL-001',
-        image: '/src/assets/images/chelsea_boot_walnut_1793033837576.jpg',
+        image: '/assets/images/chelsea_boot_walnut_1793033837576.jpg',
         color: 'Walnut Espresso',
         assortment: [
           { size: '8.5', quantity: 24 },
@@ -425,7 +789,7 @@ export const INITIAL_QUOTES: QuoteRequest[] = [
         productId: 'prod-002',
         productName: 'Classic Lace-Up Work Boot',
         sku: 'CST-WRK-002',
-        image: '/src/assets/images/laceup_work_boot_1793033839697.jpg',
+        image: '/assets/images/laceup_work_boot_1793033839697.jpg',
         color: 'Cognac Amber',
         assortment: [
           { size: '9.0', quantity: 24 },
@@ -468,7 +832,7 @@ export const INITIAL_QUOTES: QuoteRequest[] = [
         productId: 'prod-003',
         productName: 'Artisanal Oxford Dress Boot',
         sku: 'CST-DRS-003',
-        image: '/src/assets/images/dress_oxford_boot_1793033839140.jpg',
+        image: '/assets/images/dress_oxford_boot_1793033839140.jpg',
         color: 'Oxblood Burgundy',
         assortment: [
           { size: '8.5', quantity: 50 },

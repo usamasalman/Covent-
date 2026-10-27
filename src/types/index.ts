@@ -27,7 +27,7 @@ export interface Product {
   categorySlug: string;
   subCategory?: string;
   gender: 'Men' | 'Women' | 'Unisex';
-  style: 'Chelsea' | 'Lace-Up' | 'Chukka' | 'Dress' | 'Work & Safety' | 'Outdoor & Hiking' | 'Custom / OEM';
+  style: 'Chelsea' | 'Lace-Up' | 'Chukka' | 'Dress' | 'Work & Safety' | 'Outdoor & Hiking' | 'Custom / OEM' | 'Western & Cowboy';
   tagline: string;
   description: string;
   leatherType: string;
@@ -51,6 +51,7 @@ export interface Product {
   samplePrice: number;
   isCustomizable: boolean;
   status: 'active' | 'draft' | 'archived';
+  videoUrl?: string;
   createdAt: string;
 }
 

@@ -55,7 +55,6 @@ export const AdminPortal: React.FC = () => {
   const [dateRange, setDateRange] = useState<'7d' | '30d' | '90d' | 'all'>('30d');
   const [productSearch, setProductSearch] = useState('');
   const [isAddProductOpen, setIsAddProductOpen] = useState(false);
-  const [editingProductId, setEditingProductId] = useState<string | null>(null);
 
   // New Product Form State
   const [newProdName, setNewProdName] = useState('');
@@ -66,12 +65,14 @@ export const AdminPortal: React.FC = () => {
   const [newProdCarton, setNewProdCarton] = useState(12);
   const [newProdTier1Price, setNewProdTier1Price] = useState(65);
   const [newProdTier4Price, setNewProdTier4Price] = useState(48);
+  const [newProdImages, setNewProdImages] = useState<string[]>([]);
+  const [newProdImageUrlInput, setNewProdImageUrlInput] = useState('');
+  const [newProdVideoUrl, setNewProdVideoUrl] = useState('');
 
   // Active Quote Review Modal State
   const [reviewingQuote, setReviewingQuote] = useState<QuoteRequest | null>(null);
   const [quoteRep, setQuoteRep] = useState('Marcus Vance');
   const [quoteInternalNote, setQuoteInternalNote] = useState('');
-  const [adjustedPrice, setAdjustedPrice] = useState<number>(0);
 
   // KPIs calculation based on date range
   const kpis = useMemo(() => {
@@ -89,10 +90,6 @@ export const AdminPortal: React.FC = () => {
       .reduce((sum, q) => sum + q.grandTotal, 0);
 
     const pendingApprovals = applications.filter((a) => a.status === 'Pending Review').length;
-    const lowStockItems = products.reduce((acc, p) => {
-      const lowCount = p.sizes.filter((s) => s.stock < 100).length;
-      return acc + (lowCount > 0 ? 1 : 0);
-    }, 0);
 
     return {
       grossSales,
@@ -103,10 +100,9 @@ export const AdminPortal: React.FC = () => {
       acceptedQuotes,
       quoteConversionRate,
       outstandingQuoteValue,
-      pendingApprovals,
-      lowStockItems
+      pendingApprovals
     };
-  }, [orders, quotes, applications, products, dateRange]);
+  }, [orders, quotes, applications, dateRange]);
 
   // CSV Export functions
   const exportCsv = (filename: string, headers: string[], rows: (string | number)[][]) => {
@@ -148,59 +144,116 @@ export const AdminPortal: React.FC = () => {
       p.construction,
       p.leatherType,
       p.moq,
-      p.tiers[0]?.unitPrice || 0,
+      p.tiers[0]?.unitPrice || 65,
       p.leadTimeWeeks
     ]);
     exportCsv(`covent-catalog-${new Date().toISOString().split('T')[0]}.csv`, headers, rows);
   };
 
+  const handleImageFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    Array.from(files).forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        if (event.target?.result) {
+          setNewProdImages((prev) => [...prev, event.target!.result as string]);
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+    addToast(`${files.length} photo(s) uploaded successfully.`, 'info');
+  };
+
+  const handleAddImageUrl = () => {
+    if (!newProdImageUrlInput.trim()) return;
+    setNewProdImages((prev) => [...prev, newProdImageUrlInput.trim()]);
+    setNewProdImageUrlInput('');
+    addToast('Photo URL added to boot gallery.', 'info');
+  };
+
+  const handleRemoveImage = (index: number) => {
+    setNewProdImages((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleVideoFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      if (event.target?.result) {
+        setNewProdVideoUrl(event.target.result as string);
+        addToast('360° product inspection video uploaded successfully.', 'info');
+      }
+    };
+    reader.readAsDataURL(file);
+  };
+
   const handleCreateProduct = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!newProdName || !newProdSku) return;
+
+    const finalImages = newProdImages.length > 0 
+      ? newProdImages 
+      : ['/assets/images/chelsea_boot_walnut_1793033837576.jpg'];
+
     addProduct({
       name: newProdName,
-      slug: newProdName.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-      sku: newProdSku || `CST-${Math.floor(100 + Math.random() * 900)}`,
+      slug: newProdName.toLowerCase().replace(/\s+/g, '-'),
+      sku: newProdSku,
       category: newProdCat,
-      categorySlug: newProdCat.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+      categorySlug: newProdCat.toLowerCase().replace(/\s+/g, '-'),
       gender: 'Men',
-      style: 'Lace-Up',
-      tagline: `Handcrafted ${newProdCat} featuring ${newProdLeather}`,
-      description: `Premium Goodyear-welted footwear built from select ${newProdLeather}. Tailored for wholesale accounts and bespoke branding programs.`,
+      style: newProdCat.includes('Western') ? 'Western & Cowboy' : newProdCat.includes('Dress') ? 'Dress' : newProdCat.includes('Work') ? 'Work & Safety' : 'Chelsea',
+      tagline: `${newProdLeather} handcrafted Goodyear welt boot`,
+      description: `Crafted from Grade-A ${newProdLeather} with 360° Goodyear welt construction.`,
       leatherType: newProdLeather,
       leatherGrade: 'Grade A Full Grain',
-      upperMaterial: 'Full-Grain Calfskin',
-      liningMaterial: 'Glove Calf Lining',
-      outsoleMaterial: 'Leather Outsole with Rubber Toplift',
+      upperMaterial: newProdLeather,
+      liningMaterial: 'Calfskin Glove Lining',
+      outsoleMaterial: 'Oak-Bark Tanned Soling Leather',
       construction: 'Goodyear Welted (360°)',
       countryOfOrigin: 'Porto, Portugal',
-      careInstructions: 'Apply natural wax cream and store in cedar trees.',
-      weightGrams: 680,
-      featured: false,
-      leadTimeWeeks: '3-4 Weeks',
+      careInstructions: 'Clean with soft cloth. Apply beeswax cream quarterly.',
+      weightGrams: 650,
+      featured: true,
+      leadTimeWeeks: '4 Weeks',
       moq: newProdMoq,
       cartonMultiple: newProdCarton,
-      images: ['/src/assets/images/hero_leather_boots_1793033837355.jpg'],
-      colors: [{ name: 'Dark Chestnut', hex: '#3B2418', code: 'CHEST' }],
+      images: finalImages,
+      colors: [{ name: 'Standard Finish', hex: '#3B2A1E', code: 'STD' }],
       sizes: [
-        { us: '8.0', uk: '7.0', eu: '41', stock: 120 },
-        { us: '9.0', uk: '8.0', eu: '42', stock: 180 },
-        { us: '10.0', uk: '9.0', eu: '43', stock: 180 },
-        { us: '11.0', uk: '10.0', eu: '44', stock: 120 }
+        { us: '8.0', uk: '7.0', eu: '41', stock: 100 },
+        { us: '8.5', uk: '7.5', eu: '41.5', stock: 150 },
+        { us: '9.0', uk: '8.0', eu: '42', stock: 200 },
+        { us: '9.5', uk: '8.5', eu: '42.5', stock: 180 },
+        { us: '10.0', uk: '9.0', eu: '43', stock: 210 },
+        { us: '10.5', uk: '9.5', eu: '43.5', stock: 140 },
+        { us: '11.0', uk: '10.0', eu: '44', stock: 100 },
+        { us: '12.0', uk: '11.0', eu: '45', stock: 80 }
       ],
       tiers: [
         { minQty: newProdMoq, maxQty: 49, unitPrice: newProdTier1Price, label: `${newProdMoq}–49 pairs` },
-        { minQty: 50, maxQty: 99, unitPrice: Number((newProdTier1Price * 0.9).toFixed(2)), label: '50–99 pairs' },
-        { minQty: 100, maxQty: 249, unitPrice: Number((newProdTier1Price * 0.8).toFixed(2)), label: '100–249 pairs' },
+        { minQty: 50, maxQty: 99, unitPrice: Math.round(newProdTier1Price * 0.9), label: '50–99 pairs' },
+        { minQty: 100, maxQty: 249, unitPrice: Math.round(newProdTier1Price * 0.82), label: '100–249 pairs' },
         { minQty: 250, maxQty: null, unitPrice: newProdTier4Price, label: '250+ pairs' }
       ],
       sampleAvailable: true,
-      samplePrice: Number((newProdTier1Price * 1.5).toFixed(2)),
+      samplePrice: 95,
       isCustomizable: true,
-      status: 'active'
+      status: 'active',
+      videoUrl: newProdVideoUrl || undefined
     });
+
     setIsAddProductOpen(false);
     setNewProdName('');
     setNewProdSku('');
+    setNewProdImages([]);
+    setNewProdImageUrlInput('');
+    setNewProdVideoUrl('');
+    addToast(`Successfully created ${newProdName} with ${finalImages.length} image(s).`, 'success');
   };
 
   return (
@@ -227,7 +280,7 @@ export const AdminPortal: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={handleExportOrders}
-            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-[#211B17] bg-[#C8A265] hover:bg-[#D8B47E] rounded transition-colors shadow-sm"
+            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-[#211B17] bg-[#C8A265] hover:bg-[#D8B47E] rounded transition-colors shadow-sm cursor-pointer"
           >
             <Download className="w-3.5 h-3.5" /> Export Orders CSV
           </button>
@@ -277,7 +330,7 @@ export const AdminPortal: React.FC = () => {
                 <button
                   key={r}
                   onClick={() => setDateRange(r)}
-                  className={`px-3 py-1 rounded transition-colors ${
+                  className={`px-3 py-1 rounded transition-colors cursor-pointer ${
                     dateRange === r ? 'bg-[#2E221B] text-white font-semibold' : 'text-[#6E6054]'
                   }`}
                 >
@@ -347,13 +400,13 @@ export const AdminPortal: React.FC = () => {
                     <div className="flex gap-2">
                       <button
                         onClick={() => updateApplicationStatus(app.id, 'Approved', 'Standard Wholesale')}
-                        className="px-2.5 py-1 text-[11px] font-semibold text-white bg-emerald-800 hover:bg-emerald-900 rounded"
+                        className="px-2.5 py-1 text-[11px] font-semibold text-white bg-emerald-800 hover:bg-emerald-900 rounded cursor-pointer"
                       >
                         Approve
                       </button>
                       <button
                         onClick={() => updateApplicationStatus(app.id, 'Declined')}
-                        className="px-2 py-1 text-[11px] text-[#7A6C5F] hover:text-rose-700"
+                        className="px-2 py-1 text-[11px] text-[#7A6C5F] hover:text-rose-700 cursor-pointer"
                       >
                         Decline
                       </button>
@@ -377,7 +430,7 @@ export const AdminPortal: React.FC = () => {
                 </button>
               </div>
               <div className="space-y-2 text-xs">
-                {products.slice(0, 2).map((p) => (
+                {products.slice(0, 3).map((p) => (
                   <div key={p.id} className="p-3 bg-[#FAF7F2] rounded border border-[#E8E1D7] flex items-center justify-between">
                     <div>
                       <strong className="text-[#241B16] block">{p.name}</strong>
@@ -447,6 +500,81 @@ export const AdminPortal: React.FC = () => {
             </div>
           </div>
 
+          {/* Interactive SVG Sales Trend & Revenue Chart */}
+          <div className="p-6 bg-white rounded-lg border border-[#E5DDD2] shadow-xs space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#8C7A6B] block">
+                  Interactive Revenue & Order Volume Curve
+                </span>
+                <h3 className="font-serif text-lg font-bold text-[#241B16]">
+                  Weekly Commercial Gross Revenue ($ USD)
+                </h3>
+              </div>
+              <div className="flex items-center gap-3 text-xs">
+                <div className="flex items-center gap-1.5">
+                  <span className="w-3 h-3 bg-[#4A3728] rounded-full inline-block" />
+                  <span className="text-[#6E6054]">2026 Volume Trend</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span className="w-3 h-3 bg-[#D8B47E] rounded-full inline-block" />
+                  <span className="text-[#6E6054]">Accepted RFQs</span>
+                </div>
+              </div>
+            </div>
+
+            {/* SVG Trend Line Graph */}
+            <div className="w-full bg-[#FAF7F2] p-4 rounded-lg border border-[#E8E1D7] relative overflow-hidden">
+              <svg className="w-full h-56" viewBox="0 0 600 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="40" y1="30" x2="580" y2="30" stroke="#EAE3D9" strokeDasharray="4 4" />
+                <line x1="40" y1="80" x2="580" y2="80" stroke="#EAE3D9" strokeDasharray="4 4" />
+                <line x1="40" y1="130" x2="580" y2="130" stroke="#EAE3D9" strokeDasharray="4 4" />
+                <line x1="40" y1="170" x2="580" y2="170" stroke="#CCCCCC" />
+
+                <text x="5" y="34" fill="#8C7A6B" fontSize="10" fontFamily="monospace">$100k</text>
+                <text x="5" y="84" fill="#8C7A6B" fontSize="10" fontFamily="monospace">$60k</text>
+                <text x="5" y="134" fill="#8C7A6B" fontSize="10" fontFamily="monospace">$20k</text>
+                <text x="15" y="174" fill="#8C7A6B" fontSize="10" fontFamily="monospace">$0</text>
+
+                <defs>
+                  <linearGradient id="salesGrad" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stopColor="#C8A265" stopOpacity="0.4" />
+                    <stop offset="100%" stopColor="#C8A265" stopOpacity="0.0" />
+                  </linearGradient>
+                </defs>
+
+                <path
+                  d="M 50 150 Q 140 120 230 90 T 410 50 T 570 35 L 570 170 L 50 170 Z"
+                  fill="url(#salesGrad)"
+                />
+
+                <path
+                  d="M 50 150 L 140 125 L 230 95 L 320 110 L 410 50 L 500 65 L 570 35"
+                  stroke="#4A3728"
+                  strokeWidth="3.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+
+                <circle cx="50" cy="150" r="5" fill="#4A3728" stroke="#FFF" strokeWidth="2" />
+                <circle cx="140" cy="125" r="5" fill="#4A3728" stroke="#FFF" strokeWidth="2" />
+                <circle cx="230" cy="95" r="5" fill="#4A3728" stroke="#FFF" strokeWidth="2" />
+                <circle cx="320" cy="110" r="5" fill="#4A3728" stroke="#FFF" strokeWidth="2" />
+                <circle cx="410" cy="50" r="6" fill="#D8B47E" stroke="#4A3728" strokeWidth="2" />
+                <circle cx="500" cy="65" r="5" fill="#4A3728" stroke="#FFF" strokeWidth="2" />
+                <circle cx="570" cy="35" r="6" fill="#10B981" stroke="#FFF" strokeWidth="2" />
+
+                <text x="40" y="188" fill="#8C7A6B" fontSize="10">Wk 1 (Sep)</text>
+                <text x="130" y="188" fill="#8C7A6B" fontSize="10">Wk 2</text>
+                <text x="220" y="188" fill="#8C7A6B" fontSize="10">Wk 3</text>
+                <text x="310" y="188" fill="#8C7A6B" fontSize="10">Wk 4</text>
+                <text x="400" y="188" fill="#8C7A6B" fontSize="10">Wk 5 (Oct)</text>
+                <text x="490" y="188" fill="#8C7A6B" fontSize="10">Wk 6</text>
+                <text x="550" y="188" fill="#8C7A6B" fontSize="10">Wk 7 (Now)</text>
+              </svg>
+            </div>
+          </div>
+
           {/* Category Revenue Breakdown */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="p-6 bg-white rounded-lg border border-[#E5DDD2] space-y-4">
@@ -456,41 +584,41 @@ export const AdminPortal: React.FC = () => {
               <div className="space-y-3 text-xs">
                 <div>
                   <div className="flex justify-between mb-1 font-semibold text-[#241B16]">
-                    <span>Chelsea Boots</span>
-                    <span>120 pairs (50%)</span>
+                    <span>Western & Cowboy Boots</span>
+                    <span>180 pairs (40%)</span>
                   </div>
                   <div className="w-full bg-[#EAE3D9] h-2.5 rounded-full overflow-hidden">
-                    <div className="bg-[#4A3728] h-full w-1/2" />
+                    <div className="bg-[#8A5A2B] h-full w-[40%]" />
+                  </div>
+                </div>
+
+                <div>
+                  <div className="flex justify-between mb-1 font-semibold text-[#241B16]">
+                    <span>Chelsea Boots</span>
+                    <span>120 pairs (28%)</span>
+                  </div>
+                  <div className="w-full bg-[#EAE3D9] h-2.5 rounded-full overflow-hidden">
+                    <div className="bg-[#4A3728] h-full w-[28%]" />
                   </div>
                 </div>
 
                 <div>
                   <div className="flex justify-between mb-1 font-semibold text-[#241B16]">
                     <span>Lace-Up Work Boots</span>
-                    <span>60 pairs (25%)</span>
+                    <span>60 pairs (18%)</span>
                   </div>
                   <div className="w-full bg-[#EAE3D9] h-2.5 rounded-full overflow-hidden">
-                    <div className="bg-[#7C3F1B] h-full w-1/4" />
+                    <div className="bg-[#7C3F1B] h-full w-[18%]" />
                   </div>
                 </div>
 
                 <div>
                   <div className="flex justify-between mb-1 font-semibold text-[#241B16]">
                     <span>Oxford Dress Boots</span>
-                    <span>40 pairs (17%)</span>
+                    <span>40 pairs (10%)</span>
                   </div>
                   <div className="w-full bg-[#EAE3D9] h-2.5 rounded-full overflow-hidden">
-                    <div className="bg-[#8A5A2B] h-full w-[17%]" />
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex justify-between mb-1 font-semibold text-[#241B16]">
-                    <span>Custom OEM Programs</span>
-                    <span>20 pairs (8%)</span>
-                  </div>
-                  <div className="w-full bg-[#EAE3D9] h-2.5 rounded-full overflow-hidden">
-                    <div className="bg-[#A69788] h-full w-[8%]" />
+                    <div className="bg-[#5C3A21] h-full w-[10%]" />
                   </div>
                 </div>
               </div>
@@ -539,20 +667,20 @@ export const AdminPortal: React.FC = () => {
             <div className="flex items-center gap-2">
               <button
                 onClick={handleExportProducts}
-                className="inline-flex items-center gap-1 px-3 py-2 text-xs font-semibold text-[#4A3728] bg-[#EFE9DF] hover:bg-[#E5DDD2] rounded"
+                className="inline-flex items-center gap-1 px-3 py-2 text-xs font-semibold text-[#4A3728] bg-[#EFE9DF] hover:bg-[#E5DDD2] rounded cursor-pointer"
               >
                 <Download className="w-3.5 h-3.5" /> Export Catalog CSV
               </button>
               <button
                 onClick={() => setIsAddProductOpen(!isAddProductOpen)}
-                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white bg-[#2E221B] hover:bg-[#1E1611] rounded shadow-sm"
+                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white bg-[#2E221B] hover:bg-[#1E1611] rounded shadow-sm cursor-pointer"
               >
                 <Plus className="w-4 h-4" /> Add Boot Model
               </button>
             </div>
           </div>
 
-          {/* Add Product Modal / Dropdown */}
+          {/* Add Product Modal / Form */}
           {isAddProductOpen && (
             <form onSubmit={handleCreateProduct} className="p-6 bg-white rounded-lg border border-[#4A3728] shadow-md space-y-4">
               <h3 className="font-serif text-lg font-bold text-[#241B16] border-b border-[#F0E9DF] pb-2">
@@ -588,6 +716,7 @@ export const AdminPortal: React.FC = () => {
                     onChange={(e) => setNewProdCat(e.target.value)}
                     className="w-full px-3 py-2 text-xs border border-[#DDD3C5] rounded"
                   >
+                    <option value="Western & Cowboy Boots">Western & Cowboy Boots</option>
                     <option value="Chelsea Boots">Chelsea Boots</option>
                     <option value="Lace-Up Boots">Lace-Up Boots</option>
                     <option value="Dress Boots">Dress Boots</option>
@@ -642,6 +771,122 @@ export const AdminPortal: React.FC = () => {
                   />
                 </div>
               </div>
+
+              {/* Product Picture Upload & Gallery Section */}
+              <div className="p-4 bg-[#FAF7F2] rounded border border-[#E8E1D7] space-y-3">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-bold uppercase text-[#241B16] flex items-center gap-1.5">
+                    <Upload className="w-3.5 h-3.5 text-[#8A5A2B]" /> Boot Product Photos & Angles
+                  </label>
+                  <span className="text-[11px] text-[#7A6C5F]">Upload local images or paste URL</span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-[11px] text-[#6E6054] mb-1">Upload Local Image Files</label>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      onChange={handleImageFileUpload}
+                      className="w-full text-xs text-[#6E6054] file:mr-2 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-[#4A3728] file:text-white hover:file:bg-[#2E221B] cursor-pointer"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] text-[#6E6054] mb-1">Add Image via Direct URL</label>
+                    <div className="flex gap-2">
+                      <input
+                        type="url"
+                        placeholder="https://... or /assets/..."
+                        value={newProdImageUrlInput}
+                        onChange={(e) => setNewProdImageUrlInput(e.target.value)}
+                        className="flex-1 px-3 py-1.5 text-xs border border-[#DDD3C5] rounded bg-white"
+                      />
+                      <button
+                        type="button"
+                        onClick={handleAddImageUrl}
+                        className="px-3 py-1.5 text-xs font-semibold text-white bg-[#4A3728] hover:bg-[#2E221B] rounded cursor-pointer"
+                      >
+                        Add URL
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Image Gallery Preview Grid */}
+                {newProdImages.length > 0 && (
+                  <div>
+                    <span className="text-[11px] font-semibold text-[#6E6054] block mb-1.5">
+                      Uploaded Photo Gallery ({newProdImages.length} images):
+                    </span>
+                    <div className="flex flex-wrap gap-2">
+                      {newProdImages.map((img, idx) => (
+                        <div key={idx} className="relative w-20 h-20 bg-white border border-[#DDD3C5] rounded overflow-hidden p-1 group">
+                          <img src={img} alt={`Preview ${idx + 1}`} className="w-full h-full object-contain" />
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveImage(idx)}
+                            className="absolute top-0.5 right-0.5 w-5 h-5 bg-rose-700 text-white rounded-full text-xs flex items-center justify-center opacity-80 group-hover:opacity-100 cursor-pointer"
+                            title="Remove photo"
+                          >
+                            ×
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Product Video & 360° Turntable Upload Section */}
+              <div className="p-4 bg-[#FAF7F2] rounded border border-[#E8E1D7] space-y-3">
+                <div className="flex items-center justify-between">
+                  <label className="text-xs font-bold uppercase text-[#241B16] flex items-center gap-1.5">
+                    <Sparkles className="w-3.5 h-3.5 text-[#8A5A2B]" /> 360° Inspection Video Reel (Optional)
+                  </label>
+                  <span className="text-[11px] text-[#7A6C5F]">MP4 / WebM rotation turntable</span>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label className="block text-[11px] text-[#6E6054] mb-1">Upload Local Video File</label>
+                    <input
+                      type="file"
+                      accept="video/*"
+                      onChange={handleVideoFileUpload}
+                      className="w-full text-xs text-[#6E6054] file:mr-2 file:py-1.5 file:px-3 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-[#4A3728] file:text-white hover:file:bg-[#2E221B] cursor-pointer"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-[11px] text-[#6E6054] mb-1">Or Paste Video URL</label>
+                    <input
+                      type="text"
+                      placeholder="/assets/aistudio/... or https://..."
+                      value={newProdVideoUrl}
+                      onChange={(e) => setNewProdVideoUrl(e.target.value)}
+                      className="w-full px-3 py-1.5 text-xs border border-[#DDD3C5] rounded bg-white"
+                    />
+                  </div>
+                </div>
+
+                {newProdVideoUrl && (
+                  <div className="mt-2">
+                    <span className="text-[11px] font-semibold text-[#6E6054] block mb-1">
+                      Video Preview:
+                    </span>
+                    <video
+                      src={newProdVideoUrl}
+                      controls
+                      autoPlay
+                      loop
+                      muted
+                      className="max-h-36 rounded border border-[#DDD3C5] bg-black"
+                    />
+                  </div>
+                )}
+              </div>
               <div className="flex justify-end gap-2 pt-2">
                 <button
                   type="button"
@@ -652,7 +897,7 @@ export const AdminPortal: React.FC = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2 text-xs font-semibold uppercase tracking-wider text-white bg-[#2E221B] rounded"
+                  className="px-6 py-2 text-xs font-semibold uppercase tracking-wider text-white bg-[#2E221B] rounded cursor-pointer"
                 >
                   Save to Master Catalog
                 </button>
@@ -693,7 +938,7 @@ export const AdminPortal: React.FC = () => {
                     <td className="p-4 text-right">
                       <button
                         onClick={() => deleteProduct(p.id)}
-                        className="p-1.5 text-[#9E8F82] hover:text-rose-600 transition-colors"
+                        className="p-1.5 text-[#9E8F82] hover:text-rose-600 transition-colors cursor-pointer"
                         title="Archive product"
                       >
                         <Trash2 className="w-4 h-4" />
@@ -703,6 +948,85 @@ export const AdminPortal: React.FC = () => {
                 ))}
               </tbody>
             </table>
+          </div>
+
+          {/* Quick-Edit Size Inventory Matrix Grid */}
+          <div className="p-6 bg-white rounded-lg border border-[#E5DDD2] space-y-4 shadow-xs">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#EAE3D9] pb-3">
+              <div>
+                <span className="text-[10px] font-mono uppercase tracking-wider text-[#8C7A6B] block">
+                  Matrix Inventory Control
+                </span>
+                <h3 className="font-serif text-lg font-bold text-[#241B16]">
+                  Quick-Edit Size Stock Levels (All Models)
+                </h3>
+              </div>
+              <button
+                onClick={() => addToast('All matrix inventory stock levels saved to database.', 'success')}
+                className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white bg-emerald-800 hover:bg-emerald-900 rounded transition-colors self-start sm:self-auto cursor-pointer"
+              >
+                ✓ Save All Inventory Matrix
+              </button>
+            </div>
+
+            <p className="text-xs text-[#7A6C5F]">
+              Directly adjust pair stock across US sizes (8.0 through 12.0) for every boot model without opening individual modals.
+            </p>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs border border-[#E8E1D7]">
+                <thead className="bg-[#FAF7F2] text-[#6E6054] font-semibold border-b border-[#E8E1D7]">
+                  <tr>
+                    <th className="p-3 min-w-[180px]">Boot Model / SKU</th>
+                    <th className="p-2 text-center">US 8.0</th>
+                    <th className="p-2 text-center">US 8.5</th>
+                    <th className="p-2 text-center">US 9.0</th>
+                    <th className="p-2 text-center">US 9.5</th>
+                    <th className="p-2 text-center">US 10.0</th>
+                    <th className="p-2 text-center">US 10.5</th>
+                    <th className="p-2 text-center">US 11.0</th>
+                    <th className="p-2 text-center">US 12.0</th>
+                    <th className="p-3 text-right">Total Pairs</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#EAE3D9]">
+                  {products.map((p) => {
+                    const totalStock = p.sizes.reduce((s, sz) => s + (sz.stock || 0), 0);
+                    return (
+                      <tr key={p.id} className="hover:bg-[#FAF7F2]">
+                        <td className="p-3">
+                          <strong className="text-[#241B16] block">{p.name}</strong>
+                          <span className="font-mono text-[#8C7A6B] text-[10px]">{p.sku}</span>
+                        </td>
+                        {['8.0', '8.5', '9.0', '9.5', '10.0', '10.5', '11.0', '12.0'].map((sizeUs) => {
+                          const sizeObj = p.sizes.find((s) => s.us === sizeUs) || { stock: 0 };
+                          return (
+                            <td key={sizeUs} className="p-1.5 text-center">
+                              <input
+                                type="number"
+                                min="0"
+                                value={sizeObj.stock || 0}
+                                onChange={(e) => {
+                                  const val = parseInt(e.target.value) || 0;
+                                  const updatedSizes = p.sizes.map((s) =>
+                                    s.us === sizeUs ? { ...s, stock: val } : s
+                                  );
+                                  updateProduct(p.id, { sizes: updatedSizes });
+                                }}
+                                className="w-16 text-center py-1 bg-white border border-[#DDD3C5] rounded text-xs font-mono font-semibold text-[#241B16] focus:outline-none focus:border-[#4A3728]"
+                              />
+                            </td>
+                          );
+                        })}
+                        <td className="p-3 text-right font-serif font-bold text-[#241B16] tabular-nums">
+                          {totalStock} prs
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       )}
@@ -775,7 +1099,7 @@ export const AdminPortal: React.FC = () => {
                       {q.status === 'Accepted' && !q.convertedOrderId && (
                         <button
                           onClick={() => convertQuoteToOrder(q.id)}
-                          className="px-2.5 py-1 text-[11px] font-semibold text-white bg-emerald-800 hover:bg-emerald-900 rounded"
+                          className="px-2.5 py-1 text-[11px] font-semibold text-white bg-emerald-800 hover:bg-emerald-900 rounded cursor-pointer"
                         >
                           Convert to PO
                         </button>
@@ -786,7 +1110,7 @@ export const AdminPortal: React.FC = () => {
                           setQuoteRep(q.salesRepAssigned || 'Marcus Vance');
                           setQuoteInternalNote(q.internalNotes || '');
                         }}
-                        className="px-2.5 py-1 text-[11px] font-semibold text-[#4A3728] bg-[#EFE9DF] hover:bg-[#E5DDD2] rounded"
+                        className="px-2.5 py-1 text-[11px] font-semibold text-[#4A3728] bg-[#EFE9DF] hover:bg-[#E5DDD2] rounded cursor-pointer"
                       >
                         Review
                       </button>
@@ -799,62 +1123,49 @@ export const AdminPortal: React.FC = () => {
 
           {/* Quotation Review & Adjustment Modal */}
           {reviewingQuote && (
-            <div className="fixed inset-0 z-50 overflow-hidden bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
-              <div className="bg-white rounded-lg max-w-2xl w-full p-6 space-y-4 max-h-[90vh] overflow-y-auto">
-                <div className="flex items-center justify-between border-b border-[#F0E9DF] pb-3">
-                  <h3 className="font-serif text-xl font-bold text-[#241B16]">
-                    Review Quotation Dossier #{reviewingQuote.id}
-                  </h3>
-                  <button onClick={() => setReviewingQuote(null)} className="text-[#8C7A6B] hover:text-[#241B16]">
+            <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+              <div className="bg-white rounded-lg border border-[#3E322A] p-6 max-w-2xl w-full space-y-4 shadow-2xl">
+                <div className="flex justify-between items-start border-b border-[#F0E9DF] pb-3">
+                  <div>
+                    <h3 className="font-serif text-xl font-bold text-[#241B16]">
+                      Review & Issue Quotation {reviewingQuote.id}
+                    </h3>
+                    <p className="text-xs text-[#7A6C5F]">{reviewingQuote.companyName} ({reviewingQuote.contactName})</p>
+                  </div>
+                  <button
+                    onClick={() => setReviewingQuote(null)}
+                    className="text-[#9E8F82] hover:text-[#241B16]"
+                  >
                     ✕
                   </button>
                 </div>
 
-                <div className="text-xs space-y-2">
-                  <div className="grid grid-cols-2 gap-2">
-                    <div>Company: <strong>{reviewingQuote.companyName}</strong></div>
-                    <div>Contact: <strong>{reviewingQuote.contactName} ({reviewingQuote.email})</strong></div>
-                    <div>Port: <strong>{reviewingQuote.destinationPort}</strong></div>
-                    <div>Terms: <strong>{reviewingQuote.incoterms}</strong></div>
-                  </div>
-
-                  <div className="pt-3 border-t border-[#F0E9DF]">
-                    <span className="font-bold text-[#4A3728] block mb-1">Line Items:</span>
-                    {reviewingQuote.items.map((it, idx) => (
-                      <div key={idx} className="p-2 bg-[#FAF7F2] rounded border border-[#E8E1D7] flex justify-between text-xs mb-1">
-                        <span>{it.productName} ({it.totalQuantity} pairs)</span>
-                        <strong className="tabular-nums">
-                          {formatCurrency(it.proposedUnitPrice, reviewingQuote.preferredCurrency)} / pr
-                        </strong>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="pt-2">
-                    <label className="block font-semibold mb-1">Assign Sales Representative:</label>
+                <div className="space-y-3 text-xs">
+                  <div>
+                    <label className="block font-semibold text-[#3D3127] mb-1">Assign Sales Executive</label>
                     <input
                       type="text"
                       value={quoteRep}
                       onChange={(e) => setQuoteRep(e.target.value)}
-                      className="w-full px-3 py-1.5 border border-[#DDD3C5] rounded"
+                      className="w-full px-3 py-2 border border-[#DDD3C5] rounded"
                     />
                   </div>
 
                   <div>
-                    <label className="block font-semibold mb-1">Internal Sales Notes (Invisible to Buyer):</label>
+                    <label className="block font-semibold text-[#3D3127] mb-1">Internal Sales Desk Note</label>
                     <textarea
                       rows={2}
                       value={quoteInternalNote}
                       onChange={(e) => setQuoteInternalNote(e.target.value)}
-                      className="w-full px-3 py-1.5 border border-[#DDD3C5] rounded"
+                      className="w-full px-3 py-2 border border-[#DDD3C5] rounded"
                     />
                   </div>
                 </div>
 
-                <div className="pt-3 flex justify-end gap-2 border-t border-[#F0E9DF]">
+                <div className="flex justify-end gap-2 pt-3 border-t border-[#F0E9DF]">
                   <button
                     onClick={() => setReviewingQuote(null)}
-                    className="px-4 py-2 text-xs text-[#7A6C5F]"
+                    className="px-4 py-2 text-xs text-[#7A6C5F] hover:text-[#241B16]"
                   >
                     Cancel
                   </button>
@@ -866,10 +1177,11 @@ export const AdminPortal: React.FC = () => {
                         status: 'Sent to Buyer'
                       });
                       setReviewingQuote(null);
+                      addToast(`Quotation ${reviewingQuote.id} sent to buyer.`);
                     }}
-                    className="px-6 py-2 text-xs font-semibold uppercase tracking-wider text-white bg-[#2E221B] rounded"
+                    className="px-6 py-2 text-xs font-semibold uppercase tracking-wider text-white bg-[#2E221B] rounded cursor-pointer"
                   >
-                    Transmit Formal Quotation to Buyer
+                    Dispatch Quote to Buyer Account
                   </button>
                 </div>
               </div>
@@ -920,7 +1232,7 @@ export const AdminPortal: React.FC = () => {
                       <select
                         value={ord.fulfillmentStatus}
                         onChange={(e) => updateOrderStatus(ord.id, e.target.value as any)}
-                        className="text-xs font-semibold px-2 py-1 bg-white border border-[#DDD3C5] rounded"
+                        className="text-xs font-semibold px-2 py-1 bg-white border border-[#DDD3C5] rounded cursor-pointer"
                       >
                         <option value="Draft">Draft</option>
                         <option value="Submitted">Submitted</option>
@@ -936,7 +1248,7 @@ export const AdminPortal: React.FC = () => {
                       <select
                         value={ord.paymentStatus}
                         onChange={(e) => updatePaymentStatus(ord.id, e.target.value as any)}
-                        className="text-xs font-semibold text-emerald-900 bg-emerald-50 border border-emerald-300 rounded px-2 py-1"
+                        className="text-xs font-semibold text-emerald-900 bg-emerald-50 border border-emerald-300 rounded px-2 py-1 cursor-pointer"
                       >
                         <option value="Pending Verification">Pending Verification</option>
                         <option value="Authorized">Authorized</option>
@@ -1008,13 +1320,13 @@ export const AdminPortal: React.FC = () => {
                         <>
                           <button
                             onClick={() => updateApplicationStatus(app.id, 'Approved', 'Standard Wholesale')}
-                            className="px-2.5 py-1 text-xs font-semibold text-white bg-emerald-800 hover:bg-emerald-900 rounded"
+                            className="px-2.5 py-1 text-xs font-semibold text-white bg-emerald-800 hover:bg-emerald-900 rounded cursor-pointer"
                           >
                             Approve
                           </button>
                           <button
                             onClick={() => updateApplicationStatus(app.id, 'Declined')}
-                            className="px-2 py-1 text-xs text-rose-700 hover:underline"
+                            className="px-2 py-1 text-xs text-rose-700 hover:underline cursor-pointer"
                           >
                             Decline
                           </button>
