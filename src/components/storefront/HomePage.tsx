@@ -37,14 +37,21 @@ export const HomePage: React.FC = () => {
       
       {/* 1. Hero Section - Cinematic Luxury Wholesale */}
       <section className="relative overflow-hidden bg-[#201814] text-[#FAF7F2] py-20 lg:py-28">
-        <div className="absolute inset-0 z-0 opacity-30 mix-blend-luminosity">
-          <img
-            src="/src/assets/images/hero_leather_boots_1793033837355.jpg"
-            alt="Artisanal Goodyear Welted Leather Boots Workshop"
-            className="w-full h-full object-cover scale-105 transform motion-safe:transition-transform motion-safe:duration-1000"
-            referrerPolicy="no-referrer"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#1C1511] via-[#1C1511]/90 to-transparent" />
+        <div className="absolute inset-0 z-0 opacity-40">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover scale-105"
+            poster="/src/assets/images/hero_leather_boots_1793033837355.jpg"
+          >
+            <source
+              src="/assets/aistudio/Leather_boots_on_turntable_1080p_20261026213940_d354a8c8.mp4"
+              type="video/mp4"
+            />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#1C1511] via-[#1C1511]/85 to-[#1C1511]/50" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
