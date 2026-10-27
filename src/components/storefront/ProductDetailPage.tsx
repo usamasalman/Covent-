@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { useApp } from '../../context/AppContext';
 import { formatCurrency, calculateTierPrice, validateCartonMultiple } from '../../utils/pricingEngine';
-import { ArrowLeft, Check, ShieldCheck, Box, Download, FileText, ChevronRight, Layers, Sparkles } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, ShieldCheck, Box, Download, FileText, ChevronRight, Layers, Sparkles } from 'lucide-react';
 
 export const ProductDetailPage: React.FC = () => {
   const { products, routeParam, navigateTo, addToCart, currentUser, addToast } = useApp();

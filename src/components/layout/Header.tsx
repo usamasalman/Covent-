@@ -29,15 +29,15 @@ export const Header: React.FC = () => {
         <div className="flex items-center justify-between gap-4 h-20">
           
           {/* Zone 1: Brand Wordmark */}
-          <div className="flex items-center gap-4 shrink-0">
+          <div className="flex items-center gap-3 shrink-0">
             <button
               onClick={() => navigateTo('home')}
               className="text-left group cursor-pointer"
             >
-              <span className="font-serif text-2xl lg:text-3xl font-bold tracking-tight text-[#211B17] group-hover:text-[#4A3728] transition-colors whitespace-nowrap">
+              <span className="font-serif text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-[#211B17] group-hover:text-[#4A3728] transition-colors whitespace-nowrap">
                 COVENT & STONE
               </span>
-              <span className="block text-[10px] tracking-[0.2em] uppercase text-[#887869] font-medium -mt-1">
+              <span className="hidden sm:block text-[10px] tracking-[0.2em] uppercase text-[#887869] font-medium -mt-1">
                 Heritage Footwear & Wholesale
               </span>
             </button>
@@ -188,10 +188,10 @@ export const Header: React.FC = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 text-[#302620] hover:bg-[#EFE9DF] rounded-md"
+              className="xl:hidden p-1.5 sm:p-2 text-[#302620] hover:bg-[#EFE9DF] rounded-md cursor-pointer"
               aria-label="Toggle Navigation Menu"
             >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
             </button>
           </div>
         </div>
@@ -199,7 +199,7 @@ export const Header: React.FC = () => {
 
       {/* Mobile Drawer Navigation */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-[#FAF7F2] border-b border-[#EAE3D9] px-4 pt-3 pb-6 space-y-3 animate-in slide-in-from-top-2 duration-150">
+        <div className="xl:hidden bg-[#FAF7F2] border-b border-[#EAE3D9] px-4 pt-3 pb-6 space-y-3 animate-in slide-in-from-top-2 duration-150">
           <button
             onClick={() => {
               navigateTo('products');

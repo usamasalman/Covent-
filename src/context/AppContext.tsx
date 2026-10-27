@@ -36,7 +36,7 @@ interface AppContextType {
 
   // Quotes
   quotes: QuoteRequest[];
-  submitQuoteRequest: (quoteData: Omit<QuoteRequest, 'id' | 'createdAt' | 'updatedAt' | 'subtotal' | 'estimatedFreight' | 'grandTotal' | 'status'>) => string;
+  submitQuoteRequest: (quoteData: Omit<QuoteRequest, 'id' | 'createdAt' | 'updatedAt' | 'subtotal' | 'estimatedFreight' | 'grandTotal' | 'status' | 'validUntil'>) => string;
   updateQuote: (id: string, updates: Partial<QuoteRequest>) => void;
   acceptQuote: (id: string, buyerNote?: string) => void;
   convertQuoteToOrder: (quoteId: string) => string;
@@ -248,7 +248,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // Quotation actions
   const submitQuoteRequest = (
-    quoteData: Omit<QuoteRequest, 'id' | 'createdAt' | 'updatedAt' | 'subtotal' | 'estimatedFreight' | 'grandTotal' | 'status'>
+    quoteData: Omit<QuoteRequest, 'id' | 'createdAt' | 'updatedAt' | 'subtotal' | 'estimatedFreight' | 'grandTotal' | 'status' | 'validUntil'>
   ): string => {
     const id = `RFQ-2026-${Math.floor(1000 + Math.random() * 9000)}`;
     let subtotal = 0;
